@@ -7,6 +7,7 @@ public class ClassRoomManager : MonoBehaviour {
 	public UnityEngine.UI.Image[] posts;
 	public GameObject manager;
 	public int currentStudent, currentTarget;
+	public bool requireSecond = false;
 
 	public void StartFB(int position){
 		int x,y;
@@ -33,25 +34,46 @@ public class ClassRoomManager : MonoBehaviour {
 	}
 
 
-	void Action(){
+	public void Action(){
 		int x,y,w,z;
 		x = currentStudent/4;
 		y = (int)(((currentStudent/4.0f)-x)/ 0.25f);
-		w = currentTarget/4;
-		z = (int)(((currentTarget/4.0f)-w)/ 0.25f);
+
 
 		GameObject student = manager.gameObject.GetComponent<GameManager>().classroom[x,y];
 
 		if(student.GetComponent<Nodes>().moveType == 1 || student.GetComponent<Nodes>().moveType == 3 || student.GetComponent<Nodes>().moveType == 10 )
 			student.GetComponent<Nodes>().callAction(x,y);
-		else 
+		else if(requireSecond){
+			RequireSecondChoice();
+		}
+		else{
+			w = currentTarget/4;
+			z = (int)(((currentTarget/4.0f)-w)/ 0.25f);
 			student.GetComponent<Nodes>().callAction(x,y,w,z);
+		}
+		requireSecond = false;
 
+	}
+
+	void RequireSecondChoice(){
+		requireSecond = true;
 	}
 
 	// Use this for initialization
 	void Start () {
 		Rearrange();
+	}
+
+	public void HandleClick(int position){
+		if(requireSecond){
+			currentTarget = position;
+			requireSecond = false;
+		}
+		else{
+			StartFB(position);
+		}
+
 	}
 
 	public void Rearrange(){
