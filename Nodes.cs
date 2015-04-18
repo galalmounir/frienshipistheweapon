@@ -74,46 +74,46 @@ public class Nodes : MonoBehaviour {
 			talkUp (n1, input);
 		} else if (moveType == 10) {
 			int input = 7;
-			if (a < 3 && a > 0 && b> 0 && b < 3){
-				int t1 = a+1;
-				int t2 = a-1;
-				int t3 = b+1;
-				int t4 = b-1;
-				study (a,b,a, t3, a,t4, t2, b, t1, b, input);
-			}else if(a < 3 && a > 0 && (b == 0 || b == 3)){
-				int t1 = a+1;
-				int t2 = a-1;
-				int t3 = b;
-				if (b==0){
-					t3 = b+1;
+			if (row < 3 && row > 0 && column> 0 && column < 3){
+				int t1 = row+1;
+				int t2 = row-1;
+				int t3 = column+1;
+				int t4 = column-1;
+				study (a,b,row, t3, row,t4, t2, column, t1, column, input);
+			}else if(row < 3 && row > 0 && (column == 0 || column == 3)){
+				int t1 = row+1;
+				int t2 = row-1;
+				int t3 = column;
+				if (column==0){
+					t3 = column+1;
 				}else {
-					t3 = b-1;
+					t3 = column-1;
 				}
-				study (a,b,a, t3, t2, b, t1, b, input);
-			}else if((a == 3 || a == 0) && b > 0 && b < 3){
-				int t1 = b+1;
-				int t2 = b-1;
-				int t3 = a;
-				if (b==0){
-					t3 = a+1;
+				study (a,b,row, t3, t2, column, t1, column, input);
+			}else if((row == 3 || row == 0) && column > 0 && column < 3){
+				int t1 = column+1;
+				int t2 = column-1;
+				int t3 = row;
+				if (column==0){
+					t3 = row+1;
 				}else {
-					t3 = a-1;
+					t3 = row-1;
 				}
-				study (a,b,a, t1, a,t2, t3, b, input);
-			}else if((a == 3 || a == 0) && (b == 0 || b == 3)){
-				int t1 = a;
-				int t2 = b;
-				if (a== 3){
-					t1 = a -1;
+				study (a,b,row, t1, row,t2, t3, column, input);
+			}else if((row == 3 || row == 0) && (column == 0 || column == 3)){
+				int t1 = row;
+				int t2 = column;
+				if (row== 3){
+					t1 = row -1;
 				}else {
-					t1 = a +1;
+					t1 = row +1;
 				}
-				if (b== 3){
-					t2 = b -1;
+				if (column== 3){
+					t2 = column -1;
 				}else {
-					t2 = b +1;
+					t2 = column +1;
 				}
-				study (a,b,t1,b, a,t2, input);
+				study (a,b,t1,column,row,t2, input);
 			}
 		}
 	}
@@ -144,17 +144,7 @@ public class Nodes : MonoBehaviour {
 			accident (n1, n2);
 		}
 	}
-
-	public void callAction(int a, int b, int c, int d, int e, int f){
-		GameObject variable = manager.GetComponent<GameManager>().classroom[a,b];
-		Nodes n1 = variable.GetComponent<Nodes> ();
-		GameObject variable2 = manager.GetComponent<GameManager>().classroom[c,d];
-		Nodes n2 = variable2.GetComponent<Nodes> ();
-		GameObject variable3 = manager.GetComponent<GameManager>().classroom[e,f];
-		Nodes n3 = variable3.GetComponent<Nodes> ();
-
-	}
-
+	
 	public int totalScore(){
 		int local = you - them;
 		return local;
