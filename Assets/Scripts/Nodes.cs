@@ -18,6 +18,20 @@ public class Nodes : MonoBehaviour {
 
 	public void nodeAction(Actions type){
 		moveType = (int)type;
+		if (moveType == 1 || moveType == 9 || moveType == 2) {
+			youEffect = 10;
+			themEffect = 0;
+		} else if (moveType == 4) {
+			youEffect = 0;
+			themEffect = -10;
+		} else if (moveType == 3) {
+			youEffect = 5;
+			themEffect = 0;
+		} else if (moveType == 10) {
+			youEffect = 7;
+			themEffect = 0;
+		}
+			
 	}
 
 	public void location(int in1, int in2){
@@ -55,13 +69,52 @@ public class Nodes : MonoBehaviour {
 		if (moveType == 1) {
 			int input = 10;
 			hangOut (n1, input);
-			youEffect = input;
-			themEffect = 0;
 		}else if (moveType == 3) {
 			int input = 5;
-			//talkUp (n1, input);
-			youEffect = input;
-			themEffect = 0;
+			talkUp (n1, input);
+		} else if (moveType == 10) {
+			int input = 7;
+			if (row < 3 && row > 0 && column> 0 && column < 3){
+				int t1 = row+1;
+				int t2 = row-1;
+				int t3 = column+1;
+				int t4 = column-1;
+				study (a,b,row, t3, row,t4, t2, column, t1, column, input);
+			}else if(row < 3 && row > 0 && (column == 0 || column == 3)){
+				int t1 = row+1;
+				int t2 = row-1;
+				int t3 = column;
+				if (column==0){
+					t3 = column+1;
+				}else {
+					t3 = column-1;
+				}
+				study (a,b,row, t3, t2, column, t1, column, input);
+			}else if((row == 3 || row == 0) && column > 0 && column < 3){
+				int t1 = column+1;
+				int t2 = column-1;
+				int t3 = row;
+				if (column==0){
+					t3 = row+1;
+				}else {
+					t3 = row-1;
+				}
+				study (a,b,row, t1, row,t2, t3, column, input);
+			}else if((row == 3 || row == 0) && (column == 0 || column == 3)){
+				int t1 = row;
+				int t2 = column;
+				if (row== 3){
+					t1 = row -1;
+				}else {
+					t1 = row +1;
+				}
+				if (column== 3){
+					t2 = column -1;
+				}else {
+					t2 = column +1;
+				}
+				study (a,b,t1,column,row,t2, input);
+			}
 		}
 	}
 
@@ -73,17 +126,12 @@ public class Nodes : MonoBehaviour {
 
 		if (moveType == 2) {
 			int input = 10;
-			youEffect = input;
-			themEffect = 0;
 			introTT (n1, n2, input);
 		} else if (moveType == 4) {
 			int input = 10;
-			youEffect = input;
-			themEffect = 0;
 			introTT (n1, n2, -input);
 		} else if (moveType == 9) {
 			int input = 10;
-			youEffect = 0;
 			themEffect = -input;
 			liquid (n1, n2, input);
 		}else if (moveType == 5) {
@@ -96,22 +144,7 @@ public class Nodes : MonoBehaviour {
 			accident (n1, n2);
 		}
 	}
-
-	public void callAction(int a, int b, int c, int d, int e, int f){
-		GameObject variable = manager.GetComponent<GameManager>().classroom[a,b];
-		Nodes n1 = variable.GetComponent<Nodes> ();
-		GameObject variable2 = manager.GetComponent<GameManager>().classroom[c,d];
-		Nodes n2 = variable2.GetComponent<Nodes> ();
-		GameObject variable3 = manager.GetComponent<GameManager>().classroom[e,f];
-		Nodes n3 = variable3.GetComponent<Nodes> ();
-		if (moveType == 10) {
-			int input = 7;
-			youEffect = input;
-			themEffect = 0;
-			study (n1, n2, n3, input);
-		}
-	}
-
+	
 	public int totalScore(){
 		int local = you - them;
 		return local;
@@ -199,7 +232,29 @@ public class Nodes : MonoBehaviour {
 		}
 	}
 
+	public void talkUp(Nodes n1, int input){
+		
 
+		if (n1.enemy) {
+			enemyCh (cost);
+		} else if (n1.player) {
+			playerCh (cost);
+		}
+		for(int i = 0; i < 4; i++){
+			for(int x = 0; x < 4; x++){
+				GameObject variable = manager.GetComponent<GameManager>().classroom[x, i];
+				Nodes n = variable.GetComponent<Nodes> ();
+				if (n.player == false && n.enemy == false && this != n){
+					if (n1.enemy){
+						n.enemyCh (input);
+					}else if (n1.player){
+						n.playerCh(input);
+					}						    
+				}
+			}
+		}
+		moved = true;
+	}
 
 	public void immunity(Nodes n1, Nodes n2){
 		if (n1.enemy) {
@@ -261,18 +316,111 @@ public class Nodes : MonoBehaviour {
 		moved = true;
 	}
 
-	public void study(Nodes n1, Nodes n2,Nodes n3, int value){
-		if (n1.enemy) {
+	public void study(int n1, int n2,int n3,int n4, int n5, int n6, int n7, int n8, int n9, int n10, int value){
+		GameObject variable1 = manager.GetComponent<GameManager>().classroom[n1,n2];
+		GameObject variable2 = manager.GetComponent<GameManager>().classroom[n3,n4];
+		GameObject variable3 = manager.GetComponent<GameManager>().classroom[n5,n6];
+		GameObject variable4 = manager.GetComponent<GameManager>().classroom[n7,n8];
+		GameObject variable5 = manager.GetComponent<GameManager>().classroom[n9,n10];
+		Nodes nod1 = variable1.GetComponent<Nodes> ();
+		Nodes nod2 = variable2.GetComponent<Nodes> ();
+		Nodes nod3 = variable3.GetComponent<Nodes> ();
+		Nodes nod4 = variable4.GetComponent<Nodes> ();
+		Nodes nod5 = variable5.GetComponent<Nodes> ();
+
+		if (nod1.enemy) {
 			enemyCh (cost);
-			n2.enemyCh(value);
-			n3.enemyCh (value);
-		} else if (n1.player) {
+			if (!nod2.player && !nod2.enemy && !nod2.immune){
+				nod2.enemyCh(value);
+			}
+			if (!nod3.player && !nod3.enemy && !nod3.immune){
+				nod3.enemyCh(value);
+			}
+			if (!nod4.player && !nod4.enemy && !nod4.immune){
+				nod4.enemyCh(value);
+			}
+			if (!nod5.player && !nod5.enemy && !nod5.immune){
+				nod5.enemyCh(value);
+			}
+		} else if (nod1.player) {
 			playerCh (cost);
-			n2.playerCh(value);
-			n3.playerCh(value);
+			if (!nod2.player && !nod2.enemy && !nod2.immune){
+				nod2.playerCh(value);
+			}
+			if (!nod3.player && !nod3.enemy && !nod3.immune){
+				nod3.playerCh(value);
+			}
+			if (!nod4.player && !nod4.enemy && !nod4.immune){
+				nod4.playerCh(value);
+			}
+			if (!nod5.player && !nod5.enemy && !nod5.immune){
+				nod5.playerCh(value);
+			}
 		}
 		moved = true;
 	}
 
+	public void study(int n1, int n2,int n3,int n4, int n5, int n6, int n7, int n8, int value){
+		GameObject variable1 = manager.GetComponent<GameManager>().classroom[n1,n2];
+		GameObject variable2 = manager.GetComponent<GameManager>().classroom[n3,n4];
+		GameObject variable3 = manager.GetComponent<GameManager>().classroom[n5,n6];
+		GameObject variable4 = manager.GetComponent<GameManager>().classroom[n7,n8];
+		Nodes nod1 = variable1.GetComponent<Nodes> ();
+		Nodes nod2 = variable2.GetComponent<Nodes> ();
+		Nodes nod3 = variable3.GetComponent<Nodes> ();
+		Nodes nod4 = variable4.GetComponent<Nodes> ();
+		
+		if (nod1.enemy) {
+			enemyCh (cost);
+			if (!nod2.player && !nod2.enemy && !nod2.immune){
+				nod2.enemyCh(value);
+			}
+			if (!nod3.player && !nod3.enemy && !nod3.immune){
+				nod3.enemyCh(value);
+			}
+			if (!nod4.player && !nod4.enemy && !nod4.immune){
+				nod4.enemyCh(value);
+			}
+		} else if (nod1.player) {
+			playerCh (cost);
+			if (!nod2.player && !nod2.enemy && !nod2.immune){
+				nod2.playerCh(value);
+			}
+			if (!nod3.player && !nod3.enemy && !nod3.immune){
+				nod3.playerCh(value);
+			}
+			if (!nod4.player && !nod4.enemy && !nod4.immune){
+				nod4.playerCh(value);
+			}
+		}
+		moved = true;
+	}
+	public void study(int n1, int n2,int n3,int n4, int n5, int n6, int value){
+		GameObject variable1 = manager.GetComponent<GameManager>().classroom[n1,n2];
+		GameObject variable2 = manager.GetComponent<GameManager>().classroom[n3,n4];
+		GameObject variable3 = manager.GetComponent<GameManager>().classroom[n5,n6];
+		Nodes nod1 = variable1.GetComponent<Nodes> ();
+		Nodes nod2 = variable2.GetComponent<Nodes> ();
+		Nodes nod3 = variable3.GetComponent<Nodes> ();
+		
+		if (nod1.enemy) {
+			enemyCh (cost);
+			if (!nod2.player && !nod2.enemy && !nod2.immune){
+				nod2.enemyCh(value);
+			}
+			if (!nod3.player && !nod3.enemy && !nod3.immune){
+				nod3.enemyCh(value);
+			}
+		} else if (nod1.player) {
+			playerCh (cost);
+			if (!nod2.player && !nod2.enemy && !nod2.immune){
+				nod2.playerCh(value);
+			}
+			if (!nod3.player && !nod3.enemy && !nod3.immune){
+				nod3.playerCh(value);
+			}
+		}
+		moved = true;
+	}
 
 }
