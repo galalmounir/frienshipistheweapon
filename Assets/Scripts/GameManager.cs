@@ -204,7 +204,6 @@ public class GameManager : MonoBehaviour {
 				if((i==0&&j==0)||(i==classroom.GetUpperBound(0)&&j==classroom.GetUpperBound(1)))
 					continue;
 				Nodes n = classroom[i,j].GetComponent<Nodes>();
-				Debug.Log ("status " + n.usableE + " " + n.isEnemy + " " + n.usableP + " " + n.isFriend);
 				win = win && !(n.isEnemy);
 				lose = lose && !(n.isFriend);
 			}
@@ -217,8 +216,6 @@ public class GameManager : MonoBehaviour {
 			currentState = WinState.Tie;
 		if (!win && lose)
 			currentState = WinState.Lose;
-
-		Debug.Log ("status " + currentState);
 
 	}
 
