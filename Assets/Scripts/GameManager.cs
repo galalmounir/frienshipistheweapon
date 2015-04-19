@@ -178,7 +178,7 @@ public class GameManager : MonoBehaviour {
 	void Organize (){
 
 		GameObject[] newOrder = GameObject.FindGameObjectsWithTag("Student");
-		newOrder = newOrder.OrderBy (go => (go.GetComponent<Nodes>().totalScore())).ToArray ();
+		newOrder = newOrder.OrderBy (go => (go.GetComponent<Nodes>().totalScore)).ToArray ();
 
 		for(int row = 0, col = 0, pos = 0; pos < 4*4; pos++, ++row, --col){
 			if(row > 3) {
@@ -202,8 +202,10 @@ public class GameManager : MonoBehaviour {
 			for (int j =0; j < classroom.GetLength(1); j++) {
 				if((i==0&&j==0)||(i==classroom.GetUpperBound(0)&&j==classroom.GetUpperBound(1)))
 					continue;
-				win = win && !((classroom[i,j].GetComponent<Nodes>().usableE));
-				lose = lose && !(classroom[i,j].GetComponent<Nodes>().usableP);
+				Nodes n = classroom[i,j].GetComponent<Nodes>();
+				Debug.Log ("status " + n.usableE + " " + n.isEnemy + " " + n.usableP + " " + n.isFriend);
+				win = win && !(n.isEnemy);
+				lose = lose && !(n.isFriend);
 			}
 		}
 		if (!win && !lose)
@@ -214,6 +216,9 @@ public class GameManager : MonoBehaviour {
 			currentState = WinState.Tie;
 		if (!win && lose)
 			currentState = WinState.Lose;
+
+		Debug.Log ("status " + currentState);
+
 	}
 
 	void EnemyTurn(){
@@ -256,9 +261,30 @@ public class GameManager : MonoBehaviour {
 	}
 
 	void EndGame(){
-		var go = new GameObject();
-		GUIText gui = go.AddComponent<GUIText>();
-		go.transform.position.Set (0.5f, 0.5f, 0.0f);
-		gui.text = "Game Over!";
+		//var go = new GameObject();
+		//GUIText gui = go.AddComponent<GUIText>();
+		//go.transform.position.Set (0.5f, 0.5f, 0.0f);
+		//gui.text = "Game Over!";
+	}
+
+	void OnGUI() // this will bring up your game won GUI when atEnd is true
+	{
+		GUI.Label(new Rect(Screen.width/2, 0, 100, 20), "Week "+week);
+		if(currentState != WinState.Continue) //checks the value of the "atEend" variable and executes the code within if evaluated as true
+		{
+			GUI.BeginGroup(new Rect((Screen.width/2) - 50, (Screen.height/2)- 60, 100, 120)); // this begins a GUI group not required but it helps in organization
+			
+			GUI.Label(new Rect(0, 0, 100, 20), "You Win !!"); // this will display the "You Win" text
+			if(GUI.Button(new Rect(0, 20, 100, 50), "Play Again" )) // this displays the "play again" text and when clicked runs the "MoveToStart" function(method)
+			{
+				//MoveToStart();
+			}
+			if(GUI.Button(new Rect(0, 70, 100, 50), "Quit")) // shows "quit" text and ends the game
+			{
+				Application.Quit();
+			}
+			
+			GUI.EndGroup(); // this is required once to close the group started above
+		}
 	}
 }

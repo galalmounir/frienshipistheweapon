@@ -51,6 +51,23 @@ public class Nodes : MonoBehaviour {
 		column = in2;
 	}
 
+	public int totalScore{
+		get{
+			return you - them;
+		}
+	}
+
+	public bool isEnemy{
+		get{
+			return totalScore < -5 ? true : false;
+		}
+	}
+	public bool isFriend{
+		get{
+			return totalScore > 5 ? true : false;
+		}
+	}
+
 	public void status(){
 		int local = you - them;
 		if (local > 5) {
@@ -155,11 +172,6 @@ public class Nodes : MonoBehaviour {
 		} else if (moveType == 8) {
 			accident (n1, n2);
 		}
-	}
-	
-	public int totalScore(){
-		int local = you - them;
-		return local;
 	}
 
 	public int playerS(){
