@@ -22,8 +22,7 @@ public class ClassRoomManager : MonoBehaviour {
 		fb.transform.FindChild("Name").GetComponent<UnityEngine.UI.Text>().text = student.GetComponent<Personality>().name;
 		fb.transform.FindChild("Profile Pic").FindChild("Pic").GetComponent<UnityEngine.UI.Image>().sprite = student.GetComponent<UnityEngine.UI.Image>().sprite;
 		fb.transform.FindChild("About").FindChild("Birthday").GetComponent<UnityEngine.UI.Text>().text = student.GetComponent<Personality>().birthday;
-
-		Debug.Log(x.ToString()+y.ToString());
+		fb.transform.FindChild("Power").FindChild("Effect").GetComponent<UnityEngine.UI.Text>().text = "You: "+ student.GetComponent<Nodes>().youEffect+ "\nThem: "+student.GetComponent<Nodes>().themEffect+ "\n";
 
 		for (int i=0; i<posts.Length;i++){
 			posts[i].gameObject.transform.FindChild("Post Text").GetComponent<UnityEngine.UI.Text>().text = student.GetComponent<Personality>().posts[i];
@@ -53,6 +52,12 @@ public class ClassRoomManager : MonoBehaviour {
 		int y = (int)(((currentTarget/4.0f)-x)/ 0.25f);
 		GameObject student = manager.gameObject.GetComponent<GameManager>().classroom[x,y];
 		student.GetComponent<UnityEngine.UI.Button>().image.material = null;
+
+		x = currentStudent/4;
+		y = (int)(((currentStudent/4.0f)-x)/ 0.25f);
+		student = manager.gameObject.GetComponent<GameManager>().classroom[x,y];
+		student.transform.FindChild("Check").gameObject.SetActive(true);
+
 		fb.SetActive (false);
 
 	}
@@ -77,11 +82,41 @@ public class ClassRoomManager : MonoBehaviour {
 			HideFB();
 		}
 		else{
+			GameObject fb = this.transform.FindChild("FB").gameObject;
+			GameObject students = this.transform.FindChild("Students").gameObject;
+			GameObject error = this.transform.FindChild("Error").gameObject;
 
+			UnityEngine.UI.Button[] buttons = fb.GetComponentsInChildren<UnityEngine.UI.Button>();
+			foreach (UnityEngine.UI.Button button in buttons){
+				button.enabled = false;
+			}
+
+			buttons = students.GetComponentsInChildren<UnityEngine.UI.Button>();
+			foreach (UnityEngine.UI.Button button in buttons){
+				button.enabled = false;
+			}
+
+			error.SetActive(true);
 		}
 	}
 
-
+	public void ExitError(){
+		GameObject fb = this.transform.FindChild("FB").gameObject;
+		GameObject students = this.transform.FindChild("Students").gameObject;
+		GameObject error = this.transform.FindChild("Error").gameObject;
+		
+		UnityEngine.UI.Button[] buttons = fb.GetComponentsInChildren<UnityEngine.UI.Button>();
+		foreach (UnityEngine.UI.Button button in buttons){
+			button.enabled = true;
+		}
+		
+		buttons = students.GetComponentsInChildren<UnityEngine.UI.Button>();
+		foreach (UnityEngine.UI.Button button in buttons){
+			button.enabled = true;
+		}
+		
+		error.SetActive(false);
+	}
 	// Use this for initialization
 	void Start () {
 		Rearrange();

@@ -194,7 +194,7 @@ public class GameManager : MonoBehaviour {
 			EndGame();
 		}
 	}
-
+	
 	void SetUpNewTurn(){
 		for (int i =0; i < classroom.GetLength(0); i++) {
 			for (int j =0; j < classroom.GetLength(1); j++) {
@@ -207,7 +207,7 @@ public class GameManager : MonoBehaviour {
 		classManager.GetComponent<ClassRoomManager>().Rearrange ();
 	}
 
-	void NextTurn(){
+	public void NextTurn(){
 		EnemyTurn ();
 
 		//pauseForAnimation = true;
