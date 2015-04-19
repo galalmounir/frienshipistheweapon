@@ -265,24 +265,24 @@ public class GameManager : MonoBehaviour {
 			classManager.GetComponent<ClassRoomManager> ().Lose ();
 	}
 
-	void OnGUI() // this will bring up your game won GUI when atEnd is true
-	{
-		GUI.Label(new Rect(Screen.width/2, 0, 100, 20), "Week "+week);
-		if(currentState != WinState.Continue) //checks the value of the "atEend" variable and executes the code within if evaluated as true
-		{
-			GUI.BeginGroup(new Rect((Screen.width/2) - 50, (Screen.height/2)- 60, 100, 120)); // this begins a GUI group not required but it helps in organization
-			
-			GUI.Label(new Rect(0, 0, 100, 20), "You Win !!"); // this will display the "You Win" text
-			if(GUI.Button(new Rect(0, 20, 100, 50), "Play Again" )) // this displays the "play again" text and when clicked runs the "MoveToStart" function(method)
-			{
-				//MoveToStart();
-			}
-			if(GUI.Button(new Rect(0, 70, 100, 50), "Quit")) // shows "quit" text and ends the game
-			{
-				Application.Quit();
-			}
-			
-			GUI.EndGroup(); // this is required once to close the group started above
-		}
-	}
+//	void OnGUI() // this will bring up your game won GUI when atEnd is true
+//	{
+//		GUI.Label(new Rect(Screen.width/2, 0, 100, 20), "Week "+week);
+//		if(currentState != WinState.Continue) //checks the value of the "atEend" variable and executes the code within if evaluated as true
+//		{
+//			GUI.BeginGroup(new Rect((Screen.width/2) - 50, (Screen.height/2)- 60, 100, 120)); // this begins a GUI group not required but it helps in organization
+//			
+//			GUI.Label(new Rect(0, 0, 100, 20), "You Win !!"); // this will display the "You Win" text
+//			if(GUI.Button(new Rect(0, 20, 100, 50), "Play Again" )) // this displays the "play again" text and when clicked runs the "MoveToStart" function(method)
+//			{
+//				//MoveToStart();
+//			}
+//			if(GUI.Button(new Rect(0, 70, 100, 50), "Quit")) // shows "quit" text and ends the game
+//			{
+//				Application.Quit();
+//			}
+//			
+//			GUI.EndGroup(); // this is required once to close the group started above
+//		}
+//	}
 }
