@@ -15,6 +15,7 @@ public class Nodes : MonoBehaviour {
 	public string MovesType = "hangOut";
 	public GameObject manager;
 	public int youEffect = 0, themEffect= 0; 
+	public int first, second, third, fourth, ninth, tenth;
 
 	// NOTE: WHEN YOU KNOW THIS WORKS, MODIFY SO THAT EXCEPTIONS ALLOW USE WITHOUT PENELTY
 
@@ -28,6 +29,13 @@ public class Nodes : MonoBehaviour {
 
 	public void nodeAction(Actions type){
 		cost = 10;
+		int first = 10;
+		int second = 10;
+		int third = 3;
+		int fourth = 10;
+		int ninth = 10;
+		int tenth = 7;
+		
 		moveType = (int)type;
 		MovesType = moves[moveType-1];
 		if (moveType == 1 || moveType == 9 || moveType == 2) {
@@ -95,14 +103,20 @@ public class Nodes : MonoBehaviour {
 		GameObject variable2 = manager.GetComponent<GameManager>().classroom[a,b];
 		Nodes n1 = variable2.GetComponent<Nodes> ();
 
+		int temp = 1;
+		
+		if (isMot) {
+			temp = 2;
+		}
+
 		if (moveType == 1) {
-			int input = 10;
+			int input = first*temp;
 			hangOut ( variable2.GetComponent<Nodes> (), input); //target node
 		}else if (moveType == 3) {
-			int input = 5;
+			int input = third*temp;
 			talkUp ( variable2.GetComponent<Nodes> (), input); //player node (so it knows what to subtract)
 		} else if (moveType == 10) {
-			int input = 7;
+			int input = tenth*temp;
 			if (row < 3 && row > 0 && column> 0 && column < 3){ //first pair is player node, rest are targets
 				int t1 = row+1;
 				int t2 = row-1;
@@ -152,15 +166,19 @@ public class Nodes : MonoBehaviour {
 		Nodes n1 = variable.GetComponent<Nodes> ();
 		GameObject variable2 = manager.GetComponent<GameManager>().classroom[c,d];
 		Nodes n2 = variable2.GetComponent<Nodes> ();
+		int temp = 1;
 
+		if (isMot) {
+			temp = 2;
+		}
 		if (moveType == 2) {
-			int input = cost;
+			int input = second*temp;
 			introTT (variable.GetComponent<Nodes>(), variable2.GetComponent<Nodes>(), input, true); //player node and target node
 		} else if (moveType == 4) {
-			int input = cost;
+			int input = fourth*cost;
 			introTT (variable.GetComponent<Nodes>(), variable2.GetComponent<Nodes>(), input, false); 
 		} else if (moveType == 9) {
-			int input = cost;
+			int input = ninth*cost;
 			themEffect = -input;
 			liquid (variable.GetComponent<Nodes>(), variable2.GetComponent<Nodes>(), input);
 		}else if (moveType == 5) {
@@ -322,7 +340,7 @@ public class Nodes : MonoBehaviour {
 	}
 
 	public void peerPressure(){
-		exceptionP = false;
+			P = false;
 		excpetionE = false;
 	}
 
