@@ -169,8 +169,8 @@ public class GameManager : MonoBehaviour {
 			for (int j =0; j < classroom.GetLength(1); j++) {
 				if((i==0&&j==0)||(i==classroom.GetUpperBound(0)&&j==classroom.GetUpperBound(1)))
 					continue;
-				win = win || (classroom[i,j].GetComponent<Nodes>().usableP);
-				lose = lose || (classroom[i,j].GetComponent<Nodes>().usableE);
+				win = win && !((classroom[i,j].GetComponent<Nodes>().usableE));
+				lose = lose || (classroom[i,j].GetComponent<Nodes>().usableP);
 			}
 		}
 		if (!win && !lose)
