@@ -144,6 +144,34 @@ public class GameManager : MonoBehaviour {
 		classroom [1, 0].GetComponent<Nodes> ().them = 30;
 	}
 
+	public int currentAllies{
+		get{
+			int totalAllies = 0;
+			for (int i =0; i < classroom.GetLength(0); i++) {
+				for (int j =0; j < classroom.GetLength(1); j++) {
+					if((i==0&&j==0)||(i==classroom.GetUpperBound(0)&&j==classroom.GetUpperBound(1)))
+						continue;
+					totalAllies += (classroom[i,j].GetComponent<Nodes>().usableP) ? 1 : 0;
+				}
+			}
+			return totalAllies;
+		}
+	}
+
+	public int currentEnemies{
+		get{
+			int totalEnemies = 0;
+			for (int i =0; i < classroom.GetLength(0); i++) {
+				for (int j =0; j < classroom.GetLength(1); j++) {
+					if((i==0&&j==0)||(i==classroom.GetUpperBound(0)&&j==classroom.GetUpperBound(1)))
+						continue;
+					totalEnemies += (classroom[i,j].GetComponent<Nodes>().usableE) ? 1 : 0;
+				}
+			}
+			return totalEnemies;
+		}
+	}
+
 	void Organize (){
 
 		GameObject[] newOrder = GameObject.FindGameObjectsWithTag("Student");
@@ -186,7 +214,7 @@ public class GameManager : MonoBehaviour {
 	}
 
 	void EnemyTurn(){
-		//enemy.GetComponent<EnemyAI> ().executeNextTurn ();
+		//enemy.GetComponent<AI> ().executeNextTurn ();
 	}
 
 	void EndTurn(){
