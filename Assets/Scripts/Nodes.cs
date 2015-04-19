@@ -15,14 +15,12 @@ public class Nodes : MonoBehaviour {
 	public string MovesType = "hangOut";
 	public GameObject manager;
 	public int youEffect = 0, themEffect= 0; 
-	public int first = 10;
-	public int second = 10;
-	public int third = 3;
-	public int fourth = 10;
-	public int ninth = 10;
-	public int tenth = 7;
-	
-	// NOTE: WHEN YOU KNOW THIS WORKS, MODIFY SO THAT EXCEPTIONS ALLOW USE WITHOUT PENELTY
+	public int hangPts = 10;
+	public int introPts = 10;
+	public int talkUpPts = 3;
+	public int trashTalkPts = 10;
+	public int couragePts = 10;
+	public int studyPts = 7;
 
 	void Update () {
 	}
@@ -37,12 +35,12 @@ public class Nodes : MonoBehaviour {
 
 	public void nodeAction(Actions type){
 		cost = 10;
-		int first = 10;
-		int second = 10;
-		int third = 3;
-		int fourth = 10;
-		int ninth = 10;
-		int tenth = 7;
+//		int hangPts = 10;
+//		int introPts = 10;
+//		int talkUpPts = 3;
+//		int trashTalkPts = 10;
+//		int couragePts = 10;
+//		int studyPts = 7;
 		
 		moveType = (int)type;
 		MovesType = moves[moveType-1];
@@ -118,13 +116,13 @@ public class Nodes : MonoBehaviour {
 		}
 		if (actionable) {
 			if (moveType == 1 && !variable2.GetComponent<Nodes> ().immune) {
-				int input = 10 * temp;
+				int input = hangPts * temp;
 				hangOut (variable2.GetComponent<Nodes> (), input); //target node
 			} else if (moveType == 3) {
-				int input = 3 * temp;
+				int input = talkUpPts * temp;
 				talkUp (variable2.GetComponent<Nodes> (), input); //player node (so it knows what to subtract)
 			} else if (moveType == 10) {
-				int input = 7 * temp;
+				int input = studyPts * temp;
 				if (row < 3 && row > 0 && column > 0 && column < 3) { //first pair is player node, rest are targets
 					int t1 = row + 1;
 					int t2 = row - 1;
@@ -183,13 +181,13 @@ public class Nodes : MonoBehaviour {
 
 		if (actionable) {
 			if (moveType == 2 && !variable2.GetComponent<Nodes> ().immune) {
-				int input = 10 * temp;
+				int input = introPts * temp;
 				introTT (variable.GetComponent<Nodes> (), variable2.GetComponent<Nodes> (), input, true); //player node and target node
 			} else if (moveType == 4 && !variable2.GetComponent<Nodes> ().immune) {
-				int input = 10 * temp;
+				int input = trashTalkPts * temp;
 				introTT (variable.GetComponent<Nodes> (), variable2.GetComponent<Nodes> (), input, false); 
 			} else if (moveType == 9 && !variable2.GetComponent<Nodes> ().immune) {
-				int input = 10 * temp;
+				int input = couragePts * temp;
 				themEffect = -input;
 				liquid (variable.GetComponent<Nodes> (), variable2.GetComponent<Nodes> (), input);
 			} else if (moveType == 5 && !variable2.GetComponent<Nodes> ().immune) {
