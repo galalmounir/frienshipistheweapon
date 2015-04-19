@@ -68,6 +68,7 @@ public class ClassRoomManager : MonoBehaviour {
 		int y = (int)(((currentTarget/4.0f)-x)/ 0.25f);
 		GameObject student = manager.gameObject.GetComponent<GameManager>().classroom[x,y];
 		student.GetComponent<UnityEngine.UI.Button>().image.material = null;
+		student.GetComponent<Animate>().StopShake();
 
 		fb.SetActive (false);
 	}
@@ -170,11 +171,13 @@ public class ClassRoomManager : MonoBehaviour {
 		int y = (int)(((prevTarget/4.0f)-x)/ 0.25f);
 		GameObject student = manager.gameObject.GetComponent<GameManager>().classroom[x,y];
 		student.GetComponent<UnityEngine.UI.Button>().image.material = null;
-		
+		student.GetComponent<Animate>().StopShake();
+
 		x = currentTarget/4;
 		y = (int)(((currentTarget/4.0f)-x)/ 0.25f);
 		student = manager.gameObject.GetComponent<GameManager>().classroom[x,y];
 		student.GetComponent<UnityEngine.UI.Button>().image.material = selectedMat;
+		student.GetComponent<Animate>().Shake();
 		gotSecond = true;
 		ResetStudentListeners();
 		GameObject fb = this.transform.FindChild("FB").gameObject;
@@ -188,6 +191,8 @@ public class ClassRoomManager : MonoBehaviour {
 		int y = (int)(((currentTarget/4.0f)-x)/ 0.25f);
 		GameObject student = manager.gameObject.GetComponent<GameManager>().classroom[x,y];
 		student.GetComponent<UnityEngine.UI.Button>().image.material = null;
+		student.GetComponent<Animate>().StopShake();
+
 		gotSecond = false;
 		StartFB(position);
 	}

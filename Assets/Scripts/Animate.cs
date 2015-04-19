@@ -8,7 +8,11 @@ public class Animate : MonoBehaviour {
 	Animator animator;
 
 	public void Shake(){
-		animator.SetTrigger("Shake");
+		animator.SetBool("Shake",true);
+	}
+
+	public void StopShake(){
+		animator.SetBool("Shake",false);
 	}
 
 	// Use this for initialization
