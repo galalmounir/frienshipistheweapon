@@ -75,13 +75,13 @@ public class ClassRoomManager : MonoBehaviour {
 		GameObject student = manager.gameObject.GetComponent<GameManager>().classroom[x,y];
 
 		if(!requireSecond){
-			student.GetComponent<Nodes>().callAction(x,y);
+			student.GetComponent<Nodes>().callAction(3,3);
 			HideFB();
 		}
 		else if(gotSecond){
 			w = currentTarget/4;
 			z = (int)(((currentTarget/4.0f)-w)/ 0.25f);
-			student.GetComponent<Nodes>().callAction(x,y,w,z);
+			student.GetComponent<Nodes>().callAction(3,3,w,z);
 			HideFB();
 		}
 		else{
@@ -168,6 +168,9 @@ public class ClassRoomManager : MonoBehaviour {
 		student.GetComponent<UnityEngine.UI.Button>().image.material = selectedMat;
 		gotSecond = true;
 		ResetStudentListeners();
+		GameObject fb = this.transform.FindChild("FB").gameObject;
+
+		fb.transform.FindChild("Power").FindChild("Power").GetComponent<UnityEngine.UI.Button>().enabled = true;
 
 	}
 	
