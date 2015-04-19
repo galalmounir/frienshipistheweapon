@@ -15,6 +15,7 @@ public class Animate : MonoBehaviour {
 		animator.SetBool("Shake",false);
 	}
 
+
 	// Use this for initialization
 	void Awake () {
 		animator = GetComponent<Animator>();

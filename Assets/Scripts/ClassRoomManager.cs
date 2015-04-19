@@ -32,7 +32,7 @@ public class ClassRoomManager : MonoBehaviour {
 			posts[i].gameObject.transform.FindChild("Comment Image").GetComponent<UnityEngine.UI.Image>().sprite = student.GetComponent<UnityEngine.UI.Image>().sprite;
 			posts[i].gameObject.transform.FindChild("Post Image").GetComponent<UnityEngine.UI.Image>().sprite = student.GetComponent<UnityEngine.UI.Image>().sprite;
 		}
-		if(student.GetComponent<Nodes>().usableP){
+		if(student.GetComponent<Nodes>().usableP || student.GetComponent<Nodes>().exceptionP){
 			if(student.GetComponent<Nodes>().moveType == 1 || student.GetComponent<Nodes>().moveType == 3 || student.GetComponent<Nodes>().moveType == 10 || student.GetComponent<Nodes>().moved){
 				requireSecond = false;
 				fb.transform.FindChild("Power").FindChild("Pick Target").gameObject.SetActive(false);
@@ -203,6 +203,7 @@ public class ClassRoomManager : MonoBehaviour {
 				GameObject student = manager.gameObject.GetComponent<GameManager>().classroom[i,j];
 				if (student.gameObject.tag == "Student"){
 					int index = i*4 + j;
+
 					student.GetComponent<Animate>().Reset();
 
 					student.gameObject.transform.SetSiblingIndex(index);
@@ -225,6 +226,7 @@ public class ClassRoomManager : MonoBehaviour {
 				}
 			}
 		}
+
 	}
 
 	public void Win(){
