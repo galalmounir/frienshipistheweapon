@@ -204,8 +204,6 @@ public class ClassRoomManager : MonoBehaviour {
 				if (student.gameObject.tag == "Student"){
 					int index = i*4 + j;
 
-					student.GetComponent<Animate>().Reset();
-
 					student.gameObject.transform.SetSiblingIndex(index);
 
 					student.transform.FindChild("Check").gameObject.SetActive(false);
@@ -226,8 +224,14 @@ public class ClassRoomManager : MonoBehaviour {
 				}
 			}
 		}
+		AnimationRearrange();
+	}
 
 	public void AnimationRearrange(){
+		GameObject[] students = GameObject.FindGameObjectsWithTag("Student");
+		for (int i=0; i<students.Length;i++){
+			students[i].GetComponent<Animate>().Reset();
+		}
 	}
 
 	public void Win(){
