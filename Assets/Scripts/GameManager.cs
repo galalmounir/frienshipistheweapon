@@ -127,7 +127,7 @@ public class GameManager : MonoBehaviour {
 				p.posts.Add(posts[(int)Random.Range(0, Mathf.Round(posts.Count - 1))]);
 				p.posts.Add(posts[(int)Random.Range(0, Mathf.Round(posts.Count - 1))]);
 
-				Actions randAction = (Actions)Random.Range(1, 10);
+				Actions randAction = (Actions)Random.Range(2, 10);
 				n.GetComponent<Nodes> ().location (i, j);
 				n.GetComponent<Nodes> ().nodeAction(randAction);
 				//same thing for pictures
