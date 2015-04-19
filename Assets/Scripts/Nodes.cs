@@ -305,15 +305,10 @@ public class Nodes : MonoBehaviour {
 		for(int i = 0; i < 4; i++){
 			for(int x = 0; x < 4; x++){
 				GameObject variable = manager.GetComponent<GameManager>().classroom[x, i];
-				//Nodes n = variable.GetComponent<Nodes> ();
-				Debug.Log ("0");
 				if (variable.GetComponent<Nodes>().player == false && variable.GetComponent<Nodes>().enemy == false){
-					Debug.Log ("1");
 					if (n1.enemy){
-						Debug.Log ("2");
 						variable.GetComponent<Nodes>().enemyCh (-input);
 					}else if (n1.player){
-						Debug.Log ("3");
 						variable.GetComponent<Nodes>().playerCh(-input);
 					}						    
 				}
@@ -366,7 +361,7 @@ public class Nodes : MonoBehaviour {
 		} else if (n1.player) {
 			playerCh (cost);
 		}
-		n2.isPranked(true);
+		n2.isPranked(false);
 		moved = true;
 	}
 
