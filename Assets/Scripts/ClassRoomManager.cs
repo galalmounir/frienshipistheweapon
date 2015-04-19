@@ -122,7 +122,6 @@ public class ClassRoomManager : MonoBehaviour {
 	}
 	// Use this for initialization
 	void Start () {
-		Rearrange();
 	}
 
 	public void PickClicked(){
