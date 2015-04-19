@@ -148,17 +148,19 @@ public class GameManager : MonoBehaviour {
 
 		GameObject[] newOrder = GameObject.FindGameObjectsWithTag("Student");
 		newOrder = newOrder.OrderBy (go => (go.GetComponent<Nodes>().totalScore())).ToArray ();
-		int index = 0;
 
-		for (int i =0; i < classroom.GetLength(0); i++) {
-			for (int j =0; j < classroom.GetLength(1); j++) {
-				if((i==0&&j==0)||(i==classroom.GetUpperBound(0)&&j==classroom.GetUpperBound(1)))
-					continue;
-
-				classroom[i,j] = newOrder[index];
-				index++;
-				classroom[i,j].GetComponent<Nodes>().location(i,j);
+		for(int row = 0, col = 0, pos = 0; pos < 4*4; pos++, ++row, --col){
+			if(row > 3) {
+				row = col+2;
+				col = 3;
+			} else if(col < 0) {
+				col = row;
+				row = 0;
 			}
+			if((row==0&&col==0)||(row==3&&col==3))
+				continue;
+			classroom[row,col] = newOrder[pos-1];
+			classroom[row,col].GetComponent<Nodes>().location(row,col);
 		}
 	}
 
