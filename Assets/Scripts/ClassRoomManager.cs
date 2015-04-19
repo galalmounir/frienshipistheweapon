@@ -192,7 +192,20 @@ public class ClassRoomManager : MonoBehaviour {
 					student.transform.FindChild("Check").gameObject.SetActive(false);
 					student.gameObject.GetComponent<UnityEngine.UI.Button>().onClick.RemoveAllListeners();
 					student.gameObject.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => {HandleClick(index);});
+
 					student.transform.FindChild("Text").GetComponent<UnityEngine.UI.Text>().text = "You: "+student.GetComponent<Nodes>().you + "\nThem: " +student.GetComponent<Nodes>().them;
+
+					if(student.GetComponent<Nodes>().usableE){
+						student.transform.FindChild("Text").GetComponent<UnityEngine.UI.Text>().color = Color.red;
+					}
+					else if (student.GetComponent<Nodes>().usableP){
+						student.transform.FindChild("Text").GetComponent<UnityEngine.UI.Text>().color = Color.green;
+					}
+					else{
+						student.transform.FindChild("Text").GetComponent<UnityEngine.UI.Text>().color = Color.blue;
+					}
+
+
 					Debug.Log(student.gameObject.name + index);
 
 				}
