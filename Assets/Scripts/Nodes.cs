@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public enum Actions {hang, intro, talkup, trash, immunity, motivate, pressure, accident, courage, study};
 public class Nodes : MonoBehaviour {
-
+	
 	public static int row, column;
 	public int moveType = 1;
 	public int you = 0;
@@ -15,9 +15,17 @@ public class Nodes : MonoBehaviour {
 	public string MovesType = "hangOut";
 	public GameObject manager;
 	public int youEffect = 0, themEffect= 0; 
-	public int first, second, third, fourth, ninth, tenth;
-
+	public int first = 10;
+	public int second = 10;
+	public int third = 3;
+	public int fourth = 10;
+	public int ninth = 10;
+	public int tenth = 7;
+	
 	// NOTE: WHEN YOU KNOW THIS WORKS, MODIFY SO THAT EXCEPTIONS ALLOW USE WITHOUT PENELTY
+
+	void Update () {
+	}
 
 	public void set(){
 		player = true;
@@ -109,14 +117,14 @@ public class Nodes : MonoBehaviour {
 			temp = 2;
 		}
 		if (actionable) {
-			if (moveType == 1 && !n1.immune) {
-				int input = first * temp;
+			if (moveType == 1 && !variable2.GetComponent<Nodes> ().immune) {
+				int input = 10 * temp;
 				hangOut (variable2.GetComponent<Nodes> (), input); //target node
 			} else if (moveType == 3) {
-				int input = third * temp;
+				int input = 3 * temp;
 				talkUp (variable2.GetComponent<Nodes> (), input); //player node (so it knows what to subtract)
 			} else if (moveType == 10) {
-				int input = tenth * temp;
+				int input = 7 * temp;
 				if (row < 3 && row > 0 && column > 0 && column < 3) { //first pair is player node, rest are targets
 					int t1 = row + 1;
 					int t2 = row - 1;
@@ -174,21 +182,21 @@ public class Nodes : MonoBehaviour {
 		}
 
 		if (actionable) {
-			if (moveType == 2 && !n2.immune) {
-				int input = second * temp;
+			if (moveType == 2 && !variable2.GetComponent<Nodes> ().immune) {
+				int input = 10 * temp;
 				introTT (variable.GetComponent<Nodes> (), variable2.GetComponent<Nodes> (), input, true); //player node and target node
-			} else if (moveType == 4 && !n2.immune) {
-				int input = fourth * cost;
+			} else if (moveType == 4 && !variable2.GetComponent<Nodes> ().immune) {
+				int input = 10 * temp;
 				introTT (variable.GetComponent<Nodes> (), variable2.GetComponent<Nodes> (), input, false); 
-			} else if (moveType == 9 && !n2.immune) {
-				int input = ninth * cost;
+			} else if (moveType == 9 && !variable2.GetComponent<Nodes> ().immune) {
+				int input = 10 * temp;
 				themEffect = -input;
 				liquid (variable.GetComponent<Nodes> (), variable2.GetComponent<Nodes> (), input);
-			} else if (moveType == 5 && !n2.immune) {
+			} else if (moveType == 5 && !variable2.GetComponent<Nodes> ().immune) {
 				immunity (variable.GetComponent<Nodes> (), variable2.GetComponent<Nodes> ());
-			} else if (moveType == 6 && !n2.immune) {
+			} else if (moveType == 6 && !variable2.GetComponent<Nodes> ().immune) {
 				motivate (variable.GetComponent<Nodes> (), variable2.GetComponent<Nodes> ());
-			} else if (moveType == 7 && !n2.immune) {
+			} else if (moveType == 7 && !variable2.GetComponent<Nodes> ().immune) {
 				peerPressure (variable.GetComponent<Nodes> (), variable2.GetComponent<Nodes> ());
 			} else if (moveType == 8) {
 				accident (n1, n2);
@@ -297,12 +305,16 @@ public class Nodes : MonoBehaviour {
 		for(int i = 0; i < 4; i++){
 			for(int x = 0; x < 4; x++){
 				GameObject variable = manager.GetComponent<GameManager>().classroom[x, i];
-				Nodes n = variable.GetComponent<Nodes> ();
-				if (n.player == false && n.enemy == false && !n.immune){
+				//Nodes n = variable.GetComponent<Nodes> ();
+				Debug.Log ("0");
+				if (variable.GetComponent<Nodes>().player == false && variable.GetComponent<Nodes>().enemy == false){
+					Debug.Log ("1");
 					if (n1.enemy){
-						n.enemyCh (-input);
+						Debug.Log ("2");
+						variable.GetComponent<Nodes>().enemyCh (-input);
 					}else if (n1.player){
-						n.playerCh(-input);
+						Debug.Log ("3");
+						variable.GetComponent<Nodes>().playerCh(-input);
 					}						    
 				}
 			}
