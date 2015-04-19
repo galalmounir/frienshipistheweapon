@@ -216,9 +216,9 @@ public class Nodes : MonoBehaviour {
 
 	public void hangOut(Nodes n1, int input){
 		if (enemy) {
-			n1.enemyCh (input);
+			n1.enemyCh (-input);
 		} else if (player) {
-			n1.playerCh (input);
+			n1.playerCh (-input);
 		}
 		moved = true;
 	}
@@ -253,12 +253,11 @@ public class Nodes : MonoBehaviour {
 	//}
 
 	public void talkUp(Nodes n1, int input){
-		
 
 		if (n1.enemy) {
-			enemyCh (cost -5);
+			enemyCh (cost +5);
 		} else if (n1.player) {
-			playerCh (cost -5);
+			playerCh (cost +5);
 		}
 		for(int i = 0; i < 4; i++){
 			for(int x = 0; x < 4; x++){
@@ -266,9 +265,9 @@ public class Nodes : MonoBehaviour {
 				Nodes n = variable.GetComponent<Nodes> ();
 				if (n.player == false && n.enemy == false){
 					if (n1.enemy){
-						n.enemyCh (input);
+						n.enemyCh (-input);
 					}else if (n1.player){
-						n.playerCh(input);
+						n.playerCh(-input);
 					}						    
 				}
 			}
@@ -351,30 +350,30 @@ public class Nodes : MonoBehaviour {
 		if (nod1.enemy) {
 			enemyCh (cost);
 			if (!nod2.player && !nod2.enemy && !nod2.immune){
-				nod2.enemyCh(value);
+				nod2.enemyCh(-value);
 			}
 			if (!nod3.player && !nod3.enemy && !nod3.immune){
-				nod3.enemyCh(value);
+				nod3.enemyCh(-value);
 			}
 			if (!nod4.player && !nod4.enemy && !nod4.immune){
-				nod4.enemyCh(value);
+				nod4.enemyCh(-value);
 			}
 			if (!nod5.player && !nod5.enemy && !nod5.immune){
-				nod5.enemyCh(value);
+				nod5.enemyCh(-value);
 			}
 		} else if (nod1.player) {
 			playerCh (cost);
 			if (!nod2.player && !nod2.enemy && !nod2.immune){
-				nod2.playerCh(value);
+				nod2.playerCh(-value);
 			}
 			if (!nod3.player && !nod3.enemy && !nod3.immune){
-				nod3.playerCh(value);
+				nod3.playerCh(-value);
 			}
 			if (!nod4.player && !nod4.enemy && !nod4.immune){
-				nod4.playerCh(value);
+				nod4.playerCh(-value);
 			}
 			if (!nod5.player && !nod5.enemy && !nod5.immune){
-				nod5.playerCh(value);
+				nod5.playerCh(-value);
 			}
 		}
 		moved = true;
@@ -393,24 +392,24 @@ public class Nodes : MonoBehaviour {
 		if (nod1.enemy) {
 			enemyCh (cost);
 			if (!nod2.player && !nod2.enemy && !nod2.immune){
-				nod2.enemyCh(value);
+				nod2.enemyCh(-value);
 			}
 			if (!nod3.player && !nod3.enemy && !nod3.immune){
-				nod3.enemyCh(value);
+				nod3.enemyCh(-value);
 			}
 			if (!nod4.player && !nod4.enemy && !nod4.immune){
-				nod4.enemyCh(value);
+				nod4.enemyCh(-value);
 			}
 		} else if (nod1.player) {
 			playerCh (cost);
 			if (!nod2.player && !nod2.enemy && !nod2.immune){
-				nod2.playerCh(value);
+				nod2.playerCh(-value);
 			}
 			if (!nod3.player && !nod3.enemy && !nod3.immune){
-				nod3.playerCh(value);
+				nod3.playerCh(-value);
 			}
 			if (!nod4.player && !nod4.enemy && !nod4.immune){
-				nod4.playerCh(value);
+				nod4.playerCh(-value);
 			}
 		}
 		moved = true;
@@ -426,18 +425,18 @@ public class Nodes : MonoBehaviour {
 		if (nod1.enemy) {
 			enemyCh (cost);
 			if (!nod2.player && !nod2.enemy && !nod2.immune){
-				nod2.enemyCh(value);
+				nod2.enemyCh(-value);
 			}
 			if (!nod3.player && !nod3.enemy && !nod3.immune){
-				nod3.enemyCh(value);
+				nod3.enemyCh(-value);
 			}
 		} else if (nod1.player) {
 			playerCh (cost);
 			if (!nod2.player && !nod2.enemy && !nod2.immune){
-				nod2.playerCh(value);
+				nod2.playerCh(-value);
 			}
 			if (!nod3.player && !nod3.enemy && !nod3.immune){
-				nod3.playerCh(value);
+				nod3.playerCh(-value);
 			}
 		}
 		moved = true;
