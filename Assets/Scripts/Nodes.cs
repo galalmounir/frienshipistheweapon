@@ -108,55 +108,56 @@ public class Nodes : MonoBehaviour {
 		if (isMot) {
 			temp = 2;
 		}
-
-		if (moveType == 1 && !n1.immune) {
-			int input = first*temp;
-			hangOut ( variable2.GetComponent<Nodes> (), input); //target node
-		}else if (moveType == 3 && !n1.immune) {
-			int input = third*temp;
-			talkUp ( variable2.GetComponent<Nodes> (), input); //player node (so it knows what to subtract)
-		} else if (moveType == 10 && !n1.immune) {
-			int input = tenth*temp;
-			if (row < 3 && row > 0 && column> 0 && column < 3){ //first pair is player node, rest are targets
-				int t1 = row+1;
-				int t2 = row-1;
-				int t3 = column+1;
-				int t4 = column-1;
-				study (a,b,row, t3, row,t4, t2, column, t1, column, input);
-			}else if(row < 3 && row > 0 && (column == 0 || column == 3)){
-				int t1 = row+1;
-				int t2 = row-1;
-				int t3 = column;
-				if (column==0){
-					t3 = column+1;
-				}else {
-					t3 = column-1;
+		if (actionable) {
+			if (moveType == 1 && !n1.immune) {
+				int input = first * temp;
+				hangOut (variable2.GetComponent<Nodes> (), input); //target node
+			} else if (moveType == 3) {
+				int input = third * temp;
+				talkUp (variable2.GetComponent<Nodes> (), input); //player node (so it knows what to subtract)
+			} else if (moveType == 10) {
+				int input = tenth * temp;
+				if (row < 3 && row > 0 && column > 0 && column < 3) { //first pair is player node, rest are targets
+					int t1 = row + 1;
+					int t2 = row - 1;
+					int t3 = column + 1;
+					int t4 = column - 1;
+					study (a, b, row, t3, row, t4, t2, column, t1, column, input);
+				} else if (row < 3 && row > 0 && (column == 0 || column == 3)) {
+					int t1 = row + 1;
+					int t2 = row - 1;
+					int t3 = column;
+					if (column == 0) {
+						t3 = column + 1;
+					} else {
+						t3 = column - 1;
+					}
+					study (a, b, row, t3, t2, column, t1, column, input);
+				} else if ((row == 3 || row == 0) && column > 0 && column < 3) {
+					int t1 = column + 1;
+					int t2 = column - 1;
+					int t3 = row;
+					if (column == 0) {
+						t3 = row + 1;
+					} else {
+						t3 = row - 1;
+					}
+					study (a, b, row, t1, row, t2, t3, column, input);
+				} else if ((row == 3 || row == 0) && (column == 0 || column == 3)) {
+					int t1 = row;
+					int t2 = column;
+					if (row == 3) {
+						t1 = row - 1;
+					} else {
+						t1 = row + 1;
+					}
+					if (column == 3) {
+						t2 = column - 1;
+					} else {
+						t2 = column + 1;
+					}
+					study (a, b, t1, column, row, t2, input);
 				}
-				study (a,b,row, t3, t2, column, t1, column, input);
-			}else if((row == 3 || row == 0) && column > 0 && column < 3){
-				int t1 = column+1;
-				int t2 = column-1;
-				int t3 = row;
-				if (column==0){
-					t3 = row+1;
-				}else {
-					t3 = row-1;
-				}
-				study (a,b,row, t1, row,t2, t3, column, input);
-			}else if((row == 3 || row == 0) && (column == 0 || column == 3)){
-				int t1 = row;
-				int t2 = column;
-				if (row== 3){
-					t1 = row -1;
-				}else {
-					t1 = row +1;
-				}
-				if (column== 3){
-					t2 = column -1;
-				}else {
-					t2 = column +1;
-				}
-				study (a,b,t1,column,row,t2, input);
 			}
 		}
 	}
@@ -171,24 +172,27 @@ public class Nodes : MonoBehaviour {
 		if (isMot) {
 			temp = 2;
 		}
-		if (moveType == 2 && !n2.immune) {
-			int input = second*temp;
-			introTT (variable.GetComponent<Nodes>(), variable2.GetComponent<Nodes>(), input, true); //player node and target node
-		} else if (moveType == 4 && !n2.immune) {
-			int input = fourth*cost;
-			introTT (variable.GetComponent<Nodes>(), variable2.GetComponent<Nodes>(), input, false); 
-		} else if (moveType == 9 && !n2.immune) {
-			int input = ninth*cost;
-			themEffect = -input;
-			liquid (variable.GetComponent<Nodes>(), variable2.GetComponent<Nodes>(), input);
-		}else if (moveType == 5 && !n2.immune) {
-			immunity (variable.GetComponent<Nodes>(), variable2.GetComponent<Nodes>());
-		} else if (moveType == 6 && !n2.immune) {
-			motivate (variable.GetComponent<Nodes>(), variable2.GetComponent<Nodes>());
-		} else if (moveType == 7 && !n2.immune) {
-			peerPressure (variable.GetComponent<Nodes>(), variable2.GetComponent<Nodes>());
-		} else if (moveType == 8) {
-			accident (n1, n2);
+
+		if (actionable) {
+			if (moveType == 2 && !n2.immune) {
+				int input = second * temp;
+				introTT (variable.GetComponent<Nodes> (), variable2.GetComponent<Nodes> (), input, true); //player node and target node
+			} else if (moveType == 4 && !n2.immune) {
+				int input = fourth * cost;
+				introTT (variable.GetComponent<Nodes> (), variable2.GetComponent<Nodes> (), input, false); 
+			} else if (moveType == 9 && !n2.immune) {
+				int input = ninth * cost;
+				themEffect = -input;
+				liquid (variable.GetComponent<Nodes> (), variable2.GetComponent<Nodes> (), input);
+			} else if (moveType == 5 && !n2.immune) {
+				immunity (variable.GetComponent<Nodes> (), variable2.GetComponent<Nodes> ());
+			} else if (moveType == 6 && !n2.immune) {
+				motivate (variable.GetComponent<Nodes> (), variable2.GetComponent<Nodes> ());
+			} else if (moveType == 7 && !n2.immune) {
+				peerPressure (variable.GetComponent<Nodes> (), variable2.GetComponent<Nodes> ());
+			} else if (moveType == 8) {
+				accident (n1, n2);
+			}
 		}
 	}
 
@@ -294,7 +298,7 @@ public class Nodes : MonoBehaviour {
 			for(int x = 0; x < 4; x++){
 				GameObject variable = manager.GetComponent<GameManager>().classroom[x, i];
 				Nodes n = variable.GetComponent<Nodes> ();
-				if (n.player == false && n.enemy == false){
+				if (n.player == false && n.enemy == false && !n.immune){
 					if (n1.enemy){
 						n.enemyCh (-input);
 					}else if (n1.player){
