@@ -227,6 +227,7 @@ public class ClassRoomManager : MonoBehaviour {
 			}
 		}
 
+	public void AnimationRearrange(){
 	}
 
 	public void Win(){
