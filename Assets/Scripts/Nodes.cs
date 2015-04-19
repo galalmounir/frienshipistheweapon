@@ -303,7 +303,7 @@ public class Nodes : MonoBehaviour {
 		for(int i = 0; i < 4; i++){
 			for(int x = 0; x < 4; x++){
 				GameObject variable = manager.GetComponent<GameManager>().classroom[x, i];
-				if (variable.GetComponent<Nodes>().player == false && variable.GetComponent<Nodes>().enemy == false){
+				if (variable.GetComponent<Nodes>().player == false && variable.GetComponent<Nodes>().enemy == false && !variable.GetComponent<Nodes>().immune){
 					if (n1.enemy){
 						variable.GetComponent<Nodes>().enemyCh (-input);
 					}else if (n1.player){
