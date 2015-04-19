@@ -18,6 +18,14 @@ public class Nodes : MonoBehaviour {
 
 	// NOTE: WHEN YOU KNOW THIS WORKS, MODIFY SO THAT EXCEPTIONS ALLOW USE WITHOUT PENELTY
 
+	public void set(){
+		player = true;
+	}
+
+	public void set(bool input){
+		enemy = true;
+	}
+
 	public void nodeAction(Actions type){
 		moveType = (int)type;
 		MovesType = moves[moveType-1];
