@@ -84,10 +84,6 @@ public class AI : MonoBehaviour {
 					} else {
 						friendU [inter1].callAction (playerN.getRow (), playerN.getColumn (), Enemy [inter2].getRow (), Enemy [inter2].getColumn ());
 					}
-//					EnemyScore.Remove(inter2);
-//					friendU.Remove(inter1);
-//					friendMove.Remove(inter1);
-//					Enemy.Remove(inter2);
 					break;
 				}
 
@@ -110,8 +106,6 @@ public class AI : MonoBehaviour {
 					} else {
 						friendU [inter1].callAction (playerN.getRow (), playerN.getColumn (), Neutral [inter2].getRow (), Neutral [inter2].getColumn ());
 					}
-//					NeutralScore.Remove(inter2);
-//					friendU.Remove(inter1);
 					break;
 				}
 				
