@@ -194,7 +194,7 @@ public class GameManager : MonoBehaviour {
 	}
 
 	void WinConditions(){
-		bool win = false;
+		bool win = true;
 		bool lose = false;
 		for (int i =0; i < classroom.GetLength(0); i++) {
 			for (int j =0; j < classroom.GetLength(1); j++) {
