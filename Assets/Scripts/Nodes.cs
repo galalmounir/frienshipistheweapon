@@ -239,15 +239,15 @@ public class Nodes : MonoBehaviour {
 		
 
 		if (n1.enemy) {
-			enemyCh (cost);
+			enemyCh (cost +5);
 		} else if (n1.player) {
-			playerCh (cost);
+			playerCh (cost +5);
 		}
 		for(int i = 0; i < 4; i++){
 			for(int x = 0; x < 4; x++){
 				GameObject variable = manager.GetComponent<GameManager>().classroom[x, i];
 				Nodes n = variable.GetComponent<Nodes> ();
-				if (n.player == false && n.enemy == false && this != n){
+				if (n.player == false && n.enemy == false){
 					if (n1.enemy){
 						n.enemyCh (input);
 					}else if (n1.player){
