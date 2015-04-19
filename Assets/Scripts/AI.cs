@@ -38,50 +38,89 @@ public class AI : MonoBehaviour {
 			for (int x = 0; x < 4; x++) {
 				GameObject variable = manager.GetComponent<GameManager> ().classroom [x, i];
 				Nodes n = variable.GetComponent<Nodes> ();
-				if (!n.enemy && !n.player){
-					if (n.usableE){
-						if (n.totalScore() > 10){
-							friendU.Add(n);
-							friendScoreU.Add (n.totalScore());
-							friendMove.Add(n.youEffect - n.themEffect);
-							FUrow.Add(n.getRow());
-							FUcolumn.Add (n.getColumn());
-						}else{
-							friend.Add(n);
-							friendScore.Add(n.totalScore());
-							Frow.Add(n.getRow());
-							Fcolumn.Add (n.getColumn());
+				if (!n.enemy && !n.player) {
+					if (n.usableE) {
+						if (n.totalScore () > 10) {
+							friendU.Add (n);
+							friendScoreU.Add (n.totalScore ());
+							friendMove.Add (n.youEffect - n.themEffect);
+							FUrow.Add (n.getRow ());
+							FUcolumn.Add (n.getColumn ());
+						} else {
+							friend.Add (n);
+							friendScore.Add (n.totalScore ());
+							Frow.Add (n.getRow ());
+							Fcolumn.Add (n.getColumn ());
 						}
-					}else if(n.usableP){
-						Enemy.Add(n);
-						EnemyScore.Add(n.totalScore());
-						enemyMove.Add(n.youEffect - n.themEffect);
-						Erow.Add(n.getRow());
-						Ecolumn.Add (n.getColumn());
+					} else if (n.usableP) {
+						Enemy.Add (n);
+						EnemyScore.Add (n.totalScore ());
+						enemyMove.Add (n.youEffect - n.themEffect);
+						Erow.Add (n.getRow ());
+						Ecolumn.Add (n.getColumn ());
 
-					}else if(n.usableN){
-						Neutral.Add(n);
-						NeutralScore.Add(n.totalScore());
-						neutralMove.Add(n.youEffect - n.themEffect);
-						Nrow.Add(n.getRow());
-						Ncolumn.Add (n.getColumn());
+					} else if (n.usableN) {
+						Neutral.Add (n);
+						NeutralScore.Add (n.totalScore ());
+						neutralMove.Add (n.youEffect - n.themEffect);
+						Nrow.Add (n.getRow ());
+						Ncolumn.Add (n.getColumn ());
 					}
 				}
 			}
 		}
-		for (int x = 0; x < friendScoreU.Count; x ++){
-			//Enemy.RemoveAt(i);
-			for (int i = 0; i < EnemyScore.Count; i++) {
-				if ((EnemyScore[i]-5) < friendMove[x]){
-					int moveT = friendU[x].moveType;
-					if (moveT == 3 || moveT == 10){
-						friendU[x].callAction(playerN.getRow(), playerN.getColumn());
-					}else{
-						friendU[x].callAction(playerN.getRow(), playerN.getColumn(), Enemy[i].getRow(), Enemy[i].getColumn());
+
+		int inter1 = 0;
+
+		while (inter1 < friendScoreU.Count) {
+
+			int inter2 = 0;
+			while (inter2 < EnemyScore.Count){
+
+				if ((EnemyScore [inter2] - 5) < friendMove [inter1]) {
+					int moveT = friendU [inter1].moveType;
+					if (moveT == 3 || moveT == 10) {
+						friendU [inter1].callAction (playerN.getRow (), playerN.getColumn ());
+					} else {
+						friendU [inter1].callAction (playerN.getRow (), playerN.getColumn (), Enemy [inter2].getRow (), Enemy [inter2].getColumn ());
 					}
+					EnemyScore.Remove(inter2);
+					friendU.Remove(inter1);
+					friendMove.Remove(inter1);
+					Enemy.Remove(inter2);
+					break;
 				}
+
+				inter2 = inter2 +1;
 			}
+			inter1 = inter1+1;
 		}
+
+		inter1 = 0;
+		
+		while (inter1 < friendMove.Count) {
+			
+			int inter2 = 0;
+			while (inter2 < EnemyScore.Count){
+				
+				if ((NeutralScore [inter2] + friendMove [inter1] ) > 5) {
+					int moveT = friendU [inter1].moveType;
+					if (moveT == 3 || moveT == 10) {
+						friendU [inter1].callAction (playerN.getRow (), playerN.getColumn ());
+					} else {
+						friendU [inter1].callAction (playerN.getRow (), playerN.getColumn (), Neutral [inter2].getRow (), Neutral [inter2].getColumn ());
+					}
+					NeutralScore.Remove(inter2);
+					friendU.Remove(inter1);
+
+					break;
+				}
+				
+				inter2 = inter2 +1;
+			}
+			inter1 = inter1+1;
+		}
+
 
 	}
 }
