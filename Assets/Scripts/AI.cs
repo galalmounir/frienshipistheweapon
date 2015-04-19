@@ -14,8 +14,16 @@ public class AI : MonoBehaviour {
 
 		List<int> friendScore = new List<int>{};
 		List<int> friendScoreU = new List<int>{};
+		List<int> FUrow = new List<int>{};
+		List<int> FUcolumn = new List<int>{};
+		List<int> Frow = new List<int>{};
+		List<int> Fcolumn = new List<int>{};
 		List<int> EnemyScore = new List<int>{};
+		List<int> Erow = new List<int>{};
+		List<int> Ecolumn = new List<int>{};
 		List<int> NeutralScore = new List<int>{};
+		List<int> Nrow = new List<int>{};
+		List<int> Ncolumn = new List<int>{};
 
 		List<int> friendMove = new List<int>{};
 		List<int> enemyMove = new List<int>{};
@@ -31,14 +39,29 @@ public class AI : MonoBehaviour {
 							friendU.Add(n);
 							friendScoreU.Add (n.totalScore());
 							friendMove.Add(n.youEffect + n.themEffect);
+							FUrow.Add(n.getRow());
+							FUcolumn.Add (n.getColumn());
 						}else{
 							friend.Add(n);
 							friendScore.Add(n.totalScore());
+							Frow.Add(n.getRow());
 						}
 					}else if(n.usableP){
+						Enemy.Add(n);
+						EnemyScore.Add(n.totalScore());
+						enemyMove.Add(n.youEffect + n.themEffect);
+					}else if(n.usableN){
+						Neutral.Add(n);
+						NeutralScore.Add(n.totalScore());
+						neutralMove.Add(n.youEffect + n.themEffect);
 					}
 				}
 			}
 		}
+
+		foreach (Nodes element in friendU){
+
+		}
+
 	}
 }
