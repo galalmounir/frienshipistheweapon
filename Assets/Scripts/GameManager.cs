@@ -229,7 +229,7 @@ public class GameManager : MonoBehaviour {
 	void EndTurn(){
 		week++;
 		WinConditions ();
-		if (currentState != WinState.Continue) {
+		if (currentState != WinState.Continue) { 
 			EndGame();
 		}
 	}
@@ -262,10 +262,10 @@ public class GameManager : MonoBehaviour {
 	}
 
 	void EndGame(){
-		//var go = new GameObject();
-		//GUIText gui = go.AddComponent<GUIText>();
-		//go.transform.position.Set (0.5f, 0.5f, 0.0f);
-		//gui.text = "Game Over!";
+		if (currentState == WinState.Win)
+			classManager.GetComponent<ClassRoomManager> ().Win ();
+		if (currentState == WinState.Lose || currentState == WinState.Tie)
+			classManager.GetComponent<ClassRoomManager> ().Lose ();
 	}
 
 	void OnGUI() // this will bring up your game won GUI when atEnd is true
