@@ -16,7 +16,7 @@ public class Animate : MonoBehaviour {
 	}
 
 	// Use this for initialization
-	void Start () {
+	void Update () {
 		animator = GetComponent<Animator>();
 	}
 
