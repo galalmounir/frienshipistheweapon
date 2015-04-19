@@ -22,7 +22,7 @@ public class ClassRoomManager : MonoBehaviour {
 		fb.transform.FindChild("Name").GetComponent<UnityEngine.UI.Text>().text = student.GetComponent<Personality>().name;
 		fb.transform.FindChild("Profile Pic").FindChild("Pic").GetComponent<UnityEngine.UI.Image>().sprite = student.GetComponent<UnityEngine.UI.Image>().sprite;
 		fb.transform.FindChild("About").FindChild("Birthday").GetComponent<UnityEngine.UI.Text>().text = student.GetComponent<Personality>().birthday;
-		fb.transform.FindChild("Power").FindChild("Effect").GetComponent<UnityEngine.UI.Text>().text = "You: "+ student.GetComponent<Nodes>().youEffect+ "\nThem: "+student.GetComponent<Nodes>().themEffect+ "\n";
+		fb.transform.FindChild("Power").FindChild("Effect").GetComponent<UnityEngine.UI.Text>().text =student.GetComponent<Nodes>().MovesType +"\nYou: "+ student.GetComponent<Nodes>().youEffect+ "\nThem: "+student.GetComponent<Nodes>().themEffect+ "\n";
 
 		for (int i=0; i<posts.Length;i++){
 			posts[i].gameObject.transform.FindChild("Post Text").GetComponent<UnityEngine.UI.Text>().text = student.GetComponent<Personality>().posts[i];
@@ -33,12 +33,17 @@ public class ClassRoomManager : MonoBehaviour {
 		if(student.GetComponent<Nodes>().moveType == 1 || student.GetComponent<Nodes>().moveType == 3 || student.GetComponent<Nodes>().moveType == 10 || student.GetComponent<Nodes>().moved)
 			requireSecond = false;
 		else{
+			fb.transform.FindChild("Power").FindChild("Pick Target").gameObject.SetActive(true);
+			fb.transform.FindChild("Power").FindChild("Pick Target").GetComponent<UnityEngine.UI.Button>().enabled = true;
+
+			fb.transform.FindChild("Power").FindChild("Power").GetComponent<UnityEngine.UI.Button>().enabled = false;
 			requireSecond = true;
 		}
+
 		if(student.GetComponent<Nodes>().moved){
 			fb.transform.FindChild("Power").FindChild("Power").GetComponent<UnityEngine.UI.Button>().enabled = false;
 		}
-		else{
+		else if (!requireSecond){
 			fb.transform.FindChild("Power").FindChild("Power").GetComponent<UnityEngine.UI.Button>().enabled = true;
 		}
 
@@ -59,7 +64,6 @@ public class ClassRoomManager : MonoBehaviour {
 		student.transform.FindChild("Check").gameObject.SetActive(true);
 
 		fb.SetActive (false);
-
 	}
 
 
@@ -67,7 +71,6 @@ public class ClassRoomManager : MonoBehaviour {
 		int x,y,w,z;
 		x = currentStudent/4;
 		y = (int)(((currentStudent/4.0f)-x)/ 0.25f);
-
 
 		GameObject student = manager.gameObject.GetComponent<GameManager>().classroom[x,y];
 
@@ -122,29 +125,60 @@ public class ClassRoomManager : MonoBehaviour {
 		Rearrange();
 	}
 
-	public void HandleClick(int position){
-		if(requireSecond){
-			int prevTarget = currentTarget;
-			currentTarget = position;
-			int x = prevTarget/4;
-			int y = (int)(((prevTarget/4.0f)-x)/ 0.25f);
-			GameObject student = manager.gameObject.GetComponent<GameManager>().classroom[x,y];
-			student.GetComponent<UnityEngine.UI.Button>().image.material = null;
+	public void PickClicked(){
+		for (int i=0; i<=manager.gameObject.GetComponent<GameManager>().classroom.GetUpperBound(0);i++){
+			for(int j=0; j<=manager.gameObject.GetComponent<GameManager>().classroom.GetUpperBound(1);j++){
+				GameObject student = manager.gameObject.GetComponent<GameManager>().classroom[i,j];
+				if (student.gameObject.tag == "Student"){
+					int index = i*4 + j;
 
-			x = currentTarget/4;
-			y = (int)(((currentTarget/4.0f)-x)/ 0.25f);
-			student = manager.gameObject.GetComponent<GameManager>().classroom[x,y];
-			student.GetComponent<UnityEngine.UI.Button>().image.material = selectedMat;
-
-			gotSecond = true;
+					student.gameObject.GetComponent<UnityEngine.UI.Button>().onClick.RemoveAllListeners();
+					student.gameObject.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => {PickTarget(index);});
+					
+				}
+			}
 		}
-		else{
-			StartFB(position);
-		}
-
 	}
 
-	public void NextTurn(){
+	void ResetStudentListeners(){
+		for (int i=0; i<=manager.gameObject.GetComponent<GameManager>().classroom.GetUpperBound(0);i++){
+			for(int j=0; j<=manager.gameObject.GetComponent<GameManager>().classroom.GetUpperBound(1);j++){
+				GameObject student = manager.gameObject.GetComponent<GameManager>().classroom[i,j];
+				if (student.gameObject.tag == "Student"){
+					int index = i*4 + j;
+					
+					student.gameObject.GetComponent<UnityEngine.UI.Button>().onClick.RemoveAllListeners();
+					student.gameObject.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => {HandleClick(index);});
+					
+				}
+			}
+		}
+	}
+	public void PickTarget(int position){
+		int prevTarget = currentTarget;
+		currentTarget = position;
+		int x = prevTarget/4;
+		int y = (int)(((prevTarget/4.0f)-x)/ 0.25f);
+		GameObject student = manager.gameObject.GetComponent<GameManager>().classroom[x,y];
+		student.GetComponent<UnityEngine.UI.Button>().image.material = null;
+		
+		x = currentTarget/4;
+		y = (int)(((currentTarget/4.0f)-x)/ 0.25f);
+		student = manager.gameObject.GetComponent<GameManager>().classroom[x,y];
+		student.GetComponent<UnityEngine.UI.Button>().image.material = selectedMat;
+		gotSecond = true;
+		ResetStudentListeners();
+
+	}
+	
+	public void HandleClick(int position){
+		int x = currentTarget/4;
+		int y = (int)(((currentTarget/4.0f)-x)/ 0.25f);
+		GameObject student = manager.gameObject.GetComponent<GameManager>().classroom[x,y];
+		student.GetComponent<UnityEngine.UI.Button>().image.material = null;
+		gotSecond = false;
+		StartFB(position);
+
 
 	}
 
@@ -155,7 +189,11 @@ public class ClassRoomManager : MonoBehaviour {
 				if (student.gameObject.tag == "Student"){
 					int index = i*4 + j;
 					student.gameObject.transform.SetSiblingIndex(index);
+					student.transform.FindChild("Check").gameObject.SetActive(false);
+					student.gameObject.GetComponent<UnityEngine.UI.Button>().onClick.RemoveAllListeners();
 					student.gameObject.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => {HandleClick(index);});
+					Debug.Log(student.gameObject.name + index);
+
 				}
 			}
 		}
