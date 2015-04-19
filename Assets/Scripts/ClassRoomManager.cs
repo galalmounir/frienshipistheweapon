@@ -217,6 +217,15 @@ public class ClassRoomManager : MonoBehaviour {
 			}
 		}
 	}
+
+	public void Win(){
+
+	}
+
+	public void Lose(){
+
+	}
+
 	// Update is called once per frame
 	void Update () {
 	
