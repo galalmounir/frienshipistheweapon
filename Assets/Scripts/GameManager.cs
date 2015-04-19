@@ -100,10 +100,12 @@ public class GameManager : MonoBehaviour {
 		//instantiate player nodes
 		enemy = classroom [0,0];
 		enemy.GetComponent<Nodes> ().location (0, 0);
+		enemy.GetComponent<Nodes> ().enemy = true;
 		//details
 
 		player = classroom [classroom.GetUpperBound(0),classroom.GetUpperBound(1)];
 		player.GetComponent<Nodes> ().location (classroom.GetUpperBound(0),classroom.GetUpperBound(1));
+		player.GetComponent<Nodes> ().player = true;
 		//details
 
 		//instantiate all neutral here
@@ -195,13 +197,13 @@ public class GameManager : MonoBehaviour {
 
 	void WinConditions(){
 		bool win = true;
-		bool lose = false;
+		bool lose = true;
 		for (int i =0; i < classroom.GetLength(0); i++) {
 			for (int j =0; j < classroom.GetLength(1); j++) {
 				if((i==0&&j==0)||(i==classroom.GetUpperBound(0)&&j==classroom.GetUpperBound(1)))
 					continue;
 				win = win && !((classroom[i,j].GetComponent<Nodes>().usableE));
-				lose = lose || (classroom[i,j].GetComponent<Nodes>().usableP);
+				lose = lose && !(classroom[i,j].GetComponent<Nodes>().usableP);
 			}
 		}
 		if (!win && !lose)
