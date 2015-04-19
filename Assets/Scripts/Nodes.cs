@@ -27,6 +27,7 @@ public class Nodes : MonoBehaviour {
 	}
 
 	public void nodeAction(Actions type){
+		cost = 10;
 		moveType = (int)type;
 		MovesType = moves[moveType-1];
 		if (moveType == 1 || moveType == 9 || moveType == 2) {
