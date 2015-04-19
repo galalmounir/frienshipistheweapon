@@ -9,6 +9,7 @@ public class ClassRoomManager : MonoBehaviour {
 	public int currentStudent, currentTarget;
 	public bool requireSecond = false, gotSecond = false;
 	public Material selectedMat;
+	Animator animator;
 
 	public void StartFB(int position){
 		int x,y;
@@ -197,7 +198,10 @@ public class ClassRoomManager : MonoBehaviour {
 				GameObject student = manager.gameObject.GetComponent<GameManager>().classroom[i,j];
 				if (student.gameObject.tag == "Student"){
 					int index = i*4 + j;
+					student.GetComponent<Animate>().Reset();
+
 					student.gameObject.transform.SetSiblingIndex(index);
+
 					student.transform.FindChild("Check").gameObject.SetActive(false);
 					student.gameObject.GetComponent<UnityEngine.UI.Button>().onClick.RemoveAllListeners();
 					student.gameObject.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => {HandleClick(index);});

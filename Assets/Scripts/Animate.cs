@@ -7,21 +7,17 @@ public class Animate : MonoBehaviour {
 
 	Animator animator;
 
-	void Shake(){
+	public void Shake(){
 		animator.SetTrigger("Shake");
 	}
 
 	// Use this for initialization
 	void Start () {
 		animator = GetComponent<Animator>();
-		originalPosition = GetComponent<RectTransform>().anchoredPosition ;
-		Reset();
 	}
 
-	void Reset (){
+	public void Reset (){
 		animator.SetTrigger("Reset");
-
-
 	}
 
 	void DisableGrid(){
