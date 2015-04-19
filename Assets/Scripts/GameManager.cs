@@ -3,12 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-enum Turn
-{
-	YourTurn,
-	EnemyTurn,
-	Neither
-};
 enum WinState
 {
 	Win,
@@ -73,7 +67,7 @@ public class GameManager : MonoBehaviour {
 		" it's so hot out!"," it's so cold out!","____ just broke up with me!" ,"slept in...",
 		" it's snowing!","sun!","rain rain go away..."," RAINBOW!"};
 	int week = 1;
-	Turn turn = Turn.YourTurn;
+	bool pauseForAnimation = true;
 	WinState currentState = WinState.Continue;
 	public GameObject enemy;
 	public GameObject player;
@@ -151,7 +145,6 @@ public class GameManager : MonoBehaviour {
 	}
 
 	void Organize (){
-		turn = Turn.Neither;
 
 		GameObject[] newOrder = GameObject.FindGameObjectsWithTag("Student");
 		newOrder = newOrder.OrderBy (go => (go.GetComponent<Nodes>().totalScore())).ToArray ();
@@ -217,15 +210,15 @@ public class GameManager : MonoBehaviour {
 	void NextTurn(){
 		EnemyTurn ();
 
-		//readyForNextTurn = false;
+		//pauseForAnimation = true;
 		EndTurn ();
 		SetUpNewTurn ();
 	}
 
 	// Update is called once per frame
 	void Update () {
-		//if(!readyForTurn){
-		//	readyForTurn = MoveToPositions();
+		//if(pauseForAnimation){
+		//	pauseForAnimation = MoveToPositions();
 		//}
 	}
 
