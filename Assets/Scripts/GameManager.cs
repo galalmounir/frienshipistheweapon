@@ -165,8 +165,6 @@ public class GameManager : MonoBehaviour {
 				classroom[i,j] = newOrder[index];
 				index++;
 				classroom[i,j].GetComponent<Nodes>().location(i,j);
-
-				//probably some visual update
 			}
 		}
 	}
@@ -192,17 +190,6 @@ public class GameManager : MonoBehaviour {
 			currentState = WinState.Lose;
 	}
 
-
-	void NewTurn(){
-		for (int i =0; i < classroom.GetLength(0); i++) {
-			for (int j =0; j < classroom.GetLength(1); j++) {
-				classroom[i,j].GetComponent<Nodes>().status();
-			}
-		}
-		Organize ();
-		classManager.GetComponent<ClassRoomManager>().Rearrange ();
-	}
-
 	void EnemyTurn(){
 		//enemy.GetComponent<EnemyAI> ().executeNextTurn ();
 	}
@@ -215,15 +202,31 @@ public class GameManager : MonoBehaviour {
 		}
 	}
 
+	void SetUpNewTurn(){
+		for (int i =0; i < classroom.GetLength(0); i++) {
+			for (int j =0; j < classroom.GetLength(1); j++) {
+				classroom[i,j].GetComponent<Nodes>().status();
+			}
+		}
+		Organize ();
+
+		//get rid of this for animations
+		classManager.GetComponent<ClassRoomManager>().Rearrange ();
+	}
+
 	void NextTurn(){
 		EnemyTurn ();
+
+		//readyForNextTurn = false;
 		EndTurn ();
-		NewTurn ();
+		SetUpNewTurn ();
 	}
 
 	// Update is called once per frame
 	void Update () {
-
+		//if(!readyForTurn){
+		//	readyForTurn = MoveToPositions();
+		//}
 	}
 
 	void EndGame(){
