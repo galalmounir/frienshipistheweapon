@@ -155,7 +155,7 @@ public class GameManager : MonoBehaviour {
 				for (int j =0; j < classroom.GetLength(1); j++) {
 					if((i==0&&j==0)||(i==classroom.GetUpperBound(0)&&j==classroom.GetUpperBound(1)))
 						continue;
-					totalAllies += (classroom[i,j].GetComponent<Nodes>().usableP) ? 1 : 0;
+					totalAllies += (classroom[i,j].GetComponent<Nodes>().isFriend) ? 1 : 0;
 				}
 			}
 			return totalAllies;
@@ -169,7 +169,7 @@ public class GameManager : MonoBehaviour {
 				for (int j =0; j < classroom.GetLength(1); j++) {
 					if((i==0&&j==0)||(i==classroom.GetUpperBound(0)&&j==classroom.GetUpperBound(1)))
 						continue;
-					totalEnemies += (classroom[i,j].GetComponent<Nodes>().usableE) ? 1 : 0;
+					totalEnemies += (classroom[i,j].GetComponent<Nodes>().isEnemy) ? 1 : 0;
 				}
 			}
 			return totalEnemies;
@@ -216,7 +216,6 @@ public class GameManager : MonoBehaviour {
 			currentState = WinState.Tie;
 		if (!win && lose)
 			currentState = WinState.Lose;
-
 	}
 
 	void EnemyTurn(){
