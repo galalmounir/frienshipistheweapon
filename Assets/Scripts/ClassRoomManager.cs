@@ -144,7 +144,7 @@ public class ClassRoomManager : MonoBehaviour {
 
 	}
 
-	public void NextLevel(){
+	public void NextTurn(){
 
 	}
 
