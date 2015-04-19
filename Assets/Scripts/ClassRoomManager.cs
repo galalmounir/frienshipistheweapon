@@ -144,6 +144,10 @@ public class ClassRoomManager : MonoBehaviour {
 
 	}
 
+	public void NextLevel(){
+
+	}
+
 	public void Rearrange(){
 		for (int i=0; i<=manager.gameObject.GetComponent<GameManager>().classroom.GetUpperBound(0);i++){
 			for(int j=0; j<=manager.gameObject.GetComponent<GameManager>().classroom.GetUpperBound(1);j++){
