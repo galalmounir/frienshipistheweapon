@@ -122,7 +122,7 @@ public class ClassRoomManager : MonoBehaviour {
 	}
 	// Use this for initialization
 	void Start () {
-		Rearrange();
+
 	}
 
 	public void PickClicked(){
@@ -192,6 +192,7 @@ public class ClassRoomManager : MonoBehaviour {
 					student.transform.FindChild("Check").gameObject.SetActive(false);
 					student.gameObject.GetComponent<UnityEngine.UI.Button>().onClick.RemoveAllListeners();
 					student.gameObject.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => {HandleClick(index);});
+					student.transform.FindChild("Text").GetComponent<UnityEngine.UI.Text>().text = "You: "+student.GetComponent<Nodes>().you + "\nThem: " +student.GetComponent<Nodes>().them;
 					Debug.Log(student.gameObject.name + index);
 
 				}
