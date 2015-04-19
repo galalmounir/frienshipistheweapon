@@ -11,7 +11,7 @@ public class Nodes : MonoBehaviour {
 	public int cost = 10;
 	public bool immune = false, isMot = false, actionable = true, enemy, player; 
 	public bool usableE, usableP, usableN, excpetionE = false, exceptionP = false, moved= false;
-	public static string[] moves = {"hangOut", "introduce", "talk up", "trash", "Immunity", "Motivate", "Pressure", "accident", "courage", "study"};
+	public static string[] moves = {"hangOut", "introduce", "talk up", "Trash Talk", "Immunity", "Motivate", "Pressure", "accident", "courage", "study"};
 	public string MovesType = "hangOut";
 	public GameObject manager;
 	public int youEffect = 0, themEffect= 0; 
@@ -20,7 +20,7 @@ public class Nodes : MonoBehaviour {
 
 	public void nodeAction(Actions type){
 		moveType = (int)type;
-		MovesType = moves[moveType];
+		MovesType = moves[moveType-1];
 		if (moveType == 1 || moveType == 9 || moveType == 2) {
 			youEffect = 10;
 			themEffect = 0;
@@ -71,13 +71,13 @@ public class Nodes : MonoBehaviour {
 
 		if (moveType == 1) {
 			int input = 10;
-			hangOut (n1, input);
+			hangOut (n1, input); //target node
 		}else if (moveType == 3) {
 			int input = 5;
-			talkUp (n1, input);
+			talkUp (n1, input); //player node (so it knows what to subtract)
 		} else if (moveType == 10) {
 			int input = 7;
-			if (row < 3 && row > 0 && column> 0 && column < 3){
+			if (row < 3 && row > 0 && column> 0 && column < 3){ //first pair is player node, rest are targets
 				int t1 = row+1;
 				int t2 = row-1;
 				int t3 = column+1;
@@ -129,10 +129,10 @@ public class Nodes : MonoBehaviour {
 
 		if (moveType == 2) {
 			int input = 10;
-			introTT (n1, n2, input);
+			introTT (n1, n2, input); //player node and target node
 		} else if (moveType == 4) {
 			int input = 10;
-			introTT (n1, n2, -input);
+			introTT (n1, n2, -input); 
 		} else if (moveType == 9) {
 			int input = 10;
 			themEffect = -input;
