@@ -138,10 +138,10 @@ public class Nodes : MonoBehaviour {
 
 		if (moveType == 2) {
 			int input = 10;
-			introTT (n1, n2, input); //player node and target node
+			introTT (n1, n2, input, true); //player node and target node
 		} else if (moveType == 4) {
 			int input = 10;
-			introTT (n1, n2, -input); 
+			introTT (n1, n2, input, false); 
 		} else if (moveType == 9) {
 			int input = 10;
 			themEffect = -input;
@@ -171,11 +171,11 @@ public class Nodes : MonoBehaviour {
 	}
 
 	public void playerCh(int change){
-		you = you + change;
+		you = you - change;
 	}
 
 	public void enemyCh(int change){
-		them = them + change;
+		them = them - change;
 	}
 
 	public int youScore(){
@@ -230,19 +230,27 @@ public class Nodes : MonoBehaviour {
 		return column;
 	}
 
-	public void introTT(Nodes n1, Nodes n2, int input){
+	public void introTT(Nodes n1, Nodes n2, int input, bool value){
 		int sum = n2.getRow () + n2.getColumn ();
-		if ((row + column) - (sum) == 1 || (row + column) - (sum) == -1) {
+		//if ((row + column) - (sum) == 1 || (row + column) - (sum) == -1) {
 			if (n1.enemy) {
 				enemyCh (cost);
-				n2.enemyCh (input);
+				if (value){
+					n2.enemyCh (-input);
+				}else{
+					n2.playerCh(input);
+				}
 			} else if (n1.player) {
 				playerCh (cost);
-				n2.playerCh (input);
+				if (value){
+					n2.playerCh (-input);
+				}else{
+					n2.enemyCh(input);
+				}
 			}
 			moved = true;
 		}
-	}
+	//}
 
 	public void talkUp(Nodes n1, int input){
 		
