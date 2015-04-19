@@ -109,13 +109,13 @@ public class Nodes : MonoBehaviour {
 			temp = 2;
 		}
 
-		if (moveType == 1) {
+		if (moveType == 1 && !n1.immune) {
 			int input = first*temp;
 			hangOut ( variable2.GetComponent<Nodes> (), input); //target node
-		}else if (moveType == 3) {
+		}else if (moveType == 3 && !n1.immune) {
 			int input = third*temp;
 			talkUp ( variable2.GetComponent<Nodes> (), input); //player node (so it knows what to subtract)
-		} else if (moveType == 10) {
+		} else if (moveType == 10 && !n1.immune) {
 			int input = tenth*temp;
 			if (row < 3 && row > 0 && column> 0 && column < 3){ //first pair is player node, rest are targets
 				int t1 = row+1;
@@ -171,21 +171,21 @@ public class Nodes : MonoBehaviour {
 		if (isMot) {
 			temp = 2;
 		}
-		if (moveType == 2) {
+		if (moveType == 2 && !n2.immune) {
 			int input = second*temp;
 			introTT (variable.GetComponent<Nodes>(), variable2.GetComponent<Nodes>(), input, true); //player node and target node
-		} else if (moveType == 4) {
+		} else if (moveType == 4 && !n2.immune) {
 			int input = fourth*cost;
 			introTT (variable.GetComponent<Nodes>(), variable2.GetComponent<Nodes>(), input, false); 
-		} else if (moveType == 9) {
+		} else if (moveType == 9 && !n2.immune) {
 			int input = ninth*cost;
 			themEffect = -input;
 			liquid (variable.GetComponent<Nodes>(), variable2.GetComponent<Nodes>(), input);
-		}else if (moveType == 5) {
+		}else if (moveType == 5 && !n2.immune) {
 			immunity (variable.GetComponent<Nodes>(), variable2.GetComponent<Nodes>());
-		} else if (moveType == 6) {
+		} else if (moveType == 6 && !n2.immune) {
 			motivate (variable.GetComponent<Nodes>(), variable2.GetComponent<Nodes>());
-		} else if (moveType == 7) {
+		} else if (moveType == 7 && !n2.immune) {
 			peerPressure (variable.GetComponent<Nodes>(), variable2.GetComponent<Nodes>());
 		} else if (moveType == 8) {
 			accident (n1, n2);
@@ -340,7 +340,7 @@ public class Nodes : MonoBehaviour {
 	}
 
 	public void peerPressure(){
-			P = false;
+		exceptionP = false;
 		excpetionE = false;
 	}
 
