@@ -134,7 +134,6 @@ public class GameManager : MonoBehaviour {
 			}
 		}
 		SetDefaultScores ();
-		classManager.GetComponent<ClassRoomManager>().Rearrange ();
 	}
 
 	void SetDefaultScores(){
