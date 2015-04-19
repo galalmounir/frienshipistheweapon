@@ -11,13 +11,16 @@ public class Nodes : MonoBehaviour {
 	public int cost = 10;
 	public bool immune = false, isMot = false, actionable = true, enemy, player; 
 	public bool usableE, usableP, usableN, excpetionE = false, exceptionP = false, moved= false;
-
+	public static string[] moves = {"hangOut", "introduce", "talk up", "trash", "Immunity", "Motivate", "Pressure", "accident", "courage", "study"};
+	public string MovesType = "hangOut";
 	public GameObject manager;
 	public int youEffect = 0, themEffect= 0; 
+
 	// NOTE: WHEN YOU KNOW THIS WORKS, MODIFY SO THAT EXCEPTIONS ALLOW USE WITHOUT PENELTY
 
 	public void nodeAction(Actions type){
 		moveType = (int)type;
+		MovesType = moves[moveType];
 		if (moveType == 1 || moveType == 9 || moveType == 2) {
 			youEffect = 10;
 			themEffect = 0;
