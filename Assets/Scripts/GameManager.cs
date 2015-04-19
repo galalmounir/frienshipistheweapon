@@ -105,7 +105,7 @@ public class GameManager : MonoBehaviour {
 
 		player = classroom [classroom.GetUpperBound(0),classroom.GetUpperBound(1)];
 		player.GetComponent<Nodes> ().location (classroom.GetUpperBound(0),classroom.GetUpperBound(1));
-		player.GetComponent<Nodes> ().player = true;
+		player.GetComponent<Nodes> ().set();
 		//details
 
 		//instantiate all neutral here
