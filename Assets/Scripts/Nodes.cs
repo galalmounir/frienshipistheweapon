@@ -80,10 +80,10 @@ public class Nodes : MonoBehaviour {
 
 		if (moveType == 1) {
 			int input = 10;
-			hangOut (n1, input); //target node
+			hangOut ( variable2.GetComponent<Nodes> (), input); //target node
 		}else if (moveType == 3) {
 			int input = 5;
-			talkUp (n1, input); //player node (so it knows what to subtract)
+			talkUp ( variable2.GetComponent<Nodes> (), input); //player node (so it knows what to subtract)
 		} else if (moveType == 10) {
 			int input = 7;
 			if (row < 3 && row > 0 && column> 0 && column < 3){ //first pair is player node, rest are targets
@@ -137,21 +137,21 @@ public class Nodes : MonoBehaviour {
 		Nodes n2 = variable2.GetComponent<Nodes> ();
 
 		if (moveType == 2) {
-			int input = 10;
-			introTT (n1, n2, input, true); //player node and target node
+			int input = cost;
+			introTT (variable.GetComponent<Nodes>(), variable2.GetComponent<Nodes>(), input, true); //player node and target node
 		} else if (moveType == 4) {
-			int input = 10;
-			introTT (n1, n2, input, false); 
+			int input = cost;
+			introTT (variable.GetComponent<Nodes>(), variable2.GetComponent<Nodes>(), input, false); 
 		} else if (moveType == 9) {
-			int input = 10;
+			int input = cost;
 			themEffect = -input;
-			liquid (n1, n2, input);
+			liquid (variable.GetComponent<Nodes>(), variable2.GetComponent<Nodes>(), input);
 		}else if (moveType == 5) {
-			immunity (n1, n2);
+			immunity (variable.GetComponent<Nodes>(), variable2.GetComponent<Nodes>());
 		} else if (moveType == 6) {
-			motivate (n1, n2);
+			motivate (variable.GetComponent<Nodes>(), variable2.GetComponent<Nodes>());
 		} else if (moveType == 7) {
-			peerPressure (n1, n2);
+			peerPressure (variable.GetComponent<Nodes>(), variable2.GetComponent<Nodes>());
 		} else if (moveType == 8) {
 			accident (n1, n2);
 		}
@@ -229,6 +229,7 @@ public class Nodes : MonoBehaviour {
 	public int getColumn(){
 		return column;
 	}
+
 
 	public void introTT(Nodes n1, Nodes n2, int input, bool value){
 		int sum = n2.getRow () + n2.getColumn ();
