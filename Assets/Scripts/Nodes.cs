@@ -248,9 +248,9 @@ public class Nodes : MonoBehaviour {
 		
 
 		if (n1.enemy) {
-			enemyCh (cost +5);
+			enemyCh (cost -5);
 		} else if (n1.player) {
-			playerCh (cost +5);
+			playerCh (cost -5);
 		}
 		for(int i = 0; i < 4; i++){
 			for(int x = 0; x < 4; x++){
