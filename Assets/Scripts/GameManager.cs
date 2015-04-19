@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-enum WinState
+public enum WinState
 {
 	Win,
 	Lose,
@@ -66,9 +66,9 @@ public class GameManager : MonoBehaviour {
 		" goig to the movies!"," back from the movies!",
 		" it's so hot out!"," it's so cold out!","____ just broke up with me!" ,"slept in...",
 		" it's snowing!","sun!","rain rain go away..."," RAINBOW!"};
-	int week = 1;
+	public int week = 1;
 	bool pauseForAnimation = true;
-	WinState currentState = WinState.Continue;
+	public WinState currentState = WinState.Continue;
 	public GameObject enemy;
 	public GameObject player;
 	public GameObject classManager;
