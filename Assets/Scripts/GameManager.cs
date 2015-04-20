@@ -138,6 +138,15 @@ public class GameManager : MonoBehaviour {
 		SetUpNewTurn ();
 	}
 
+	public List<Nodes> AdjacentNodes(int x, int y){
+		List<Nodes> adjList;
+		if (x > 0) adjList.Add (classroom [x - 1, y]);
+		if (x < classroom.GetUpperBound(0)) adjList.Add (classroom [x + 1, y]);
+		if (y > 0) adjList.Add (classroom [x, y-1]);
+		if (y < classroom.GetUpperBound(1)) adjList.Add (classroom [x, y+1]);
+		return adjList;
+	}
+
 	void SetDefaultScores(){
 		classroom [3, 2].GetComponent<Nodes> ().you = 30;
 		classroom [2, 3].GetComponent<Nodes> ().you = 30;
@@ -250,13 +259,6 @@ public class GameManager : MonoBehaviour {
 		SetUpNewTurn ();
 	}
 
-	// Update is called once per frame
-	void Update () {
-		//if(pauseForAnimation){
-		//	pauseForAnimation = MoveToPositions();
-		//}
-	}
-
 	void EndGame(){
 		if (currentState == WinState.Win)
 			classManager.GetComponent<ClassRoomManager> ().Win ();
@@ -264,24 +266,4 @@ public class GameManager : MonoBehaviour {
 			classManager.GetComponent<ClassRoomManager> ().Lose ();
 	}
 
-//	void OnGUI() // this will bring up your game won GUI when atEnd is true
-//	{
-//		GUI.Label(new Rect(Screen.width/2, 0, 100, 20), "Week "+week);
-//		if(currentState != WinState.Continue) //checks the value of the "atEend" variable and executes the code within if evaluated as true
-//		{
-//			GUI.BeginGroup(new Rect((Screen.width/2) - 50, (Screen.height/2)- 60, 100, 120)); // this begins a GUI group not required but it helps in organization
-//			
-//			GUI.Label(new Rect(0, 0, 100, 20), "You Win !!"); // this will display the "You Win" text
-//			if(GUI.Button(new Rect(0, 20, 100, 50), "Play Again" )) // this displays the "play again" text and when clicked runs the "MoveToStart" function(method)
-//			{
-//				//MoveToStart();
-//			}
-//			if(GUI.Button(new Rect(0, 70, 100, 50), "Quit")) // shows "quit" text and ends the game
-//			{
-//				Application.Quit();
-//			}
-//			
-//			GUI.EndGroup(); // this is required once to close the group started above
-//		}
-//	}
 }
