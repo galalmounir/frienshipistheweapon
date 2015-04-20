@@ -290,16 +290,16 @@ public class Nodes : MonoBehaviour {
 			if (n1.enemy) {
 				enemyCh (cost);
 				if (value){
-					n2.playerCh (input);
-				}else{
 					n2.enemyCh(-input);
+				}else{
+					n2.playerCh (input);
 				}
 			} else if (n1.player) {
 				playerCh (cost);
-				if (value){
-					n2.enemyCh (input);
-				}else{
+				if (value){				
 					n2.playerCh(-input);
+				}else{
+					n2.enemyCh (input);
 				}
 			}
 			moved = true;
