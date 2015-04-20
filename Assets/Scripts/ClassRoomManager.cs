@@ -175,7 +175,7 @@ public class ClassRoomManager : MonoBehaviour {
 		}
 	}
 
-	public void AIAction(){
+	public void VisualizeAIAction(){
 
 	}
 
