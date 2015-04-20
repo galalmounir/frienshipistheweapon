@@ -78,6 +78,18 @@ public class ClassRoomManager : MonoBehaviour {
 		for (int i=0; i<students.Length;i++){
 			PlayParticles(i+1);
 			students[i].transform.FindChild("Text").GetComponent<UnityEngine.UI.Text>().text = "You: "+students[i].GetComponent<Nodes>().you + "\nThem: " +students[i].GetComponent<Nodes>().them;
+
+			if (students[i].GetComponent<Nodes>().isMot){
+				students[i].transform.FindChild("X2").gameObject.SetActive(true);
+			}
+
+			if (!students[i].GetComponent<Nodes>().actionable){
+				students[i].transform.FindChild("SkipSchool").gameObject.SetActive(true);
+			}
+
+			if (students[i].GetComponent<Nodes>().immune){
+				students[i].transform.FindChild("Immune").gameObject.SetActive(true);
+			}
 		}
 	}
 
@@ -282,6 +294,10 @@ public class ClassRoomManager : MonoBehaviour {
 					student.gameObject.transform.SetSiblingIndex(index);
 					
 					student.transform.FindChild("Check").gameObject.SetActive(false);
+					student.transform.FindChild("X2").gameObject.SetActive(false);
+					student.transform.FindChild("SkipSchool").gameObject.SetActive(false);
+					student.transform.FindChild("Immune").gameObject.SetActive(false);
+
 					student.gameObject.GetComponent<UnityEngine.UI.Button>().onClick.RemoveAllListeners();
 					student.gameObject.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => {HandleClick(index);});
 					
