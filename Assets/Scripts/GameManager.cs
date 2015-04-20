@@ -217,7 +217,9 @@ public class GameManager : MonoBehaviour {
 	}
 
 	void EnemyTurn(){
+
 		enemy.GetComponent<AI> ().assKicker ();
+		classManager.GetComponent<ClassRoomManager> ().VisualizeAIAction ();
 	}
 
 	void EndTurn(){
