@@ -370,16 +370,16 @@ public class Nodes : MonoBehaviour {
 	}
 
 	public void liquid(Nodes n1, Nodes n2, int value){
-		int modfier = (int) Random.Range (1, 2);
-		if (modfier == 2) {
+		int modfier = (int) Random.Range (1, 4);
+		if (modfier < 4) {
 			value = -value;
 		}
 		if (n1.enemy) {
 			enemyCh (cost);
-			n2.enemyCh (value*modfier);
+			n2.enemyCh (value);
 		} else if (n1.player) {
 			playerCh (cost);
-			n2.playerCh(value*modfier);
+			n2.playerCh(value);
 		}
 
 		moved = true;
