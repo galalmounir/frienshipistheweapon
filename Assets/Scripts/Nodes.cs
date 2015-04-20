@@ -11,7 +11,7 @@ public class Nodes : MonoBehaviour {
 	public int cost = 10;
 	public bool immune = false, isMot = false, actionable = true, enemy, player; 
 	public bool usableE, usableP, usableN, excpetionE = false, exceptionP = false, moved= false;
-	public static string[] moves = {"Hang out", "Introduce me", "Talk me up", "Trash talk her", "Skip school", "Motivate", "Peer pressure", "Prank", "Liquid courage", "Study session"};
+	public static string[] moves = {"hangOut", "introduce", "talk up", "Trash Talk", "Immunity", "Motivate", "Pressure", "accident", "courage", "study"};
 	public string MovesType = "hangOut";
 	public GameObject manager;
 	public int youEffect = 0, themEffect= 0; 
@@ -108,17 +108,21 @@ public class Nodes : MonoBehaviour {
 	public void callAction(int a, int b){
 		GameObject variable2 = manager.GetComponent<GameManager>().classroom[a,b];
 		Nodes n1 = variable2.GetComponent<Nodes> ();
-
 		int temp = 1;
 		
 		if (isMot) {
 			temp = 2;
 		}
+		Debug.Log(string.Format("{0} here", temp));
 		if (actionable) {
+			//Debug.Log(string.Format("{0} here", moveType));
+			//Debug.Log(string.Format("{0} here", a));
+			//Debug.Log(string.Format("{0} here", b));
 			if (moveType == 1 && !variable2.GetComponent<Nodes> ().immune) {
 				int input = hangPts * temp;
 				hangOut (variable2.GetComponent<Nodes> (), input); //target node
 			} else if (moveType == 3) {
+				//Debug.Log(string.Format("got here at least"));
 				int input = talkUpPts * temp;
 				talkUp (variable2.GetComponent<Nodes> (), input); //player node (so it knows what to subtract)
 			} else if (moveType == 10) {
@@ -178,6 +182,8 @@ public class Nodes : MonoBehaviour {
 		if (isMot) {
 			temp = 2;
 		}
+
+
 
 		if (actionable) {
 			if (moveType == 2 && !variable2.GetComponent<Nodes> ().immune) {
@@ -294,11 +300,12 @@ public class Nodes : MonoBehaviour {
 	//}
 
 	public void talkUp(Nodes n1, int input){
-
+		//Debug.Log(string.Format("got here"));
+		//Debug.Log(n1.enemy);
 		if (n1.enemy) {
-			enemyCh (cost +5);
+			enemyCh (cost + talkUpPts);
 		} else if (n1.player) {
-			playerCh (cost +5);
+			playerCh (cost + talkUpPts);
 		}
 		for(int i = 0; i < 4; i++){
 			for(int x = 0; x < 4; x++){
