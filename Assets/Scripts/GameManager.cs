@@ -12,6 +12,7 @@ public enum WinState
 };
 
 public class GameManager : MonoBehaviour {
+	public string PlayerName;
 
 	private static GameManager instance;
 	public static GameManager Instance{
@@ -90,6 +91,10 @@ public class GameManager : MonoBehaviour {
 				index++;
 			}
 		}
+	}
+
+	public void SetPlayerName(){
+		classroom[3,3].GetComponent<Personality>().fullName = PlayerName;
 	}
 	// Use this for initialization
 	void Start () {

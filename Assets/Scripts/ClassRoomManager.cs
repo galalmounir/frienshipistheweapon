@@ -21,14 +21,14 @@ public class ClassRoomManager : MonoBehaviour {
 		GameObject student = manager.gameObject.GetComponent<GameManager>().classroom[x,y];
 		GameObject fb = this.transform.FindChild("FB").gameObject;
 		fb.SetActive(true);
-		fb.transform.FindChild("Name").GetComponent<UnityEngine.UI.Text>().text = student.GetComponent<Personality>().name;
+		fb.transform.FindChild("Name").GetComponent<UnityEngine.UI.Text>().text = student.GetComponent<Personality>().fullName;
 		fb.transform.FindChild("Profile Pic").FindChild("Pic").GetComponent<UnityEngine.UI.Image>().sprite = student.GetComponent<UnityEngine.UI.Image>().sprite;
 		fb.transform.FindChild("About").FindChild("Birthday").GetComponent<UnityEngine.UI.Text>().text = student.GetComponent<Personality>().birthday;
 		fb.transform.FindChild("Power").FindChild("Effect").GetComponent<UnityEngine.UI.Text>().text =student.GetComponent<Nodes>().MovesType +"\nYou: "+ student.GetComponent<Nodes>().youEffect+ "\nThem: "+student.GetComponent<Nodes>().themEffect+ "\nCost: "+student.GetComponent<Nodes>().cost;
 
 		for (int i=0; i<posts.Length;i++){
 			posts[i].gameObject.transform.FindChild("Post Text").GetComponent<UnityEngine.UI.Text>().text = student.GetComponent<Personality>().posts[i];
-			posts[i].gameObject.transform.FindChild("Post Name").GetComponent<UnityEngine.UI.Text>().text = student.GetComponent<Personality>().name;
+			posts[i].gameObject.transform.FindChild("Post Name").GetComponent<UnityEngine.UI.Text>().text = student.GetComponent<Personality>().fullName;
 			posts[i].gameObject.transform.FindChild("Comment Image").GetComponent<UnityEngine.UI.Image>().sprite = student.GetComponent<UnityEngine.UI.Image>().sprite;
 			posts[i].gameObject.transform.FindChild("Post Image").GetComponent<UnityEngine.UI.Image>().sprite = student.GetComponent<UnityEngine.UI.Image>().sprite;
 		}
