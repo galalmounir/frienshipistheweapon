@@ -28,7 +28,7 @@ public class Nodes : MonoBehaviour {
 	public GameObject manager;
 	public int youEffect = 0, themEffect= 0; 
 	public int hangPts = 10;
-	public int introPts = 10;
+	public int introPts = 15;
 	public int talkUpPts = 3;
 	public int trashTalkPts = 10;
 	public int couragePts = 10;
@@ -38,7 +38,7 @@ public class Nodes : MonoBehaviour {
 
 	void Update () {
 	}
-
+	 
 	public void set(){
 		player = true;
 	}
@@ -50,7 +50,10 @@ public class Nodes : MonoBehaviour {
 	public void nodeAction(Actions type){
 		moveType = (int)type;
 		MovesType = moves[moveType-1];
-		if (moveType == 1 || moveType == 9 || moveType == 2) {
+		if (moveType == 1 || moveType == 9) {
+			youEffect = hangPts;
+			themEffect = 0;
+		} else if (moveType == 2){
 			youEffect = introPts;
 			themEffect = 0;
 		} else if (moveType == 4) {
