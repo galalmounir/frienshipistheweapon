@@ -109,7 +109,7 @@ public class GameManager : MonoBehaviour {
 				firstNames.Remove(randFirst);
 				string randLast = lastNames[(int)Random.Range(0, Mathf.Round(lastNames.Count))];
 				lastNames.Remove(randLast);
-				p.fullName = randFirst+randLast;
+				p.fullName = randFirst+" " +randLast;
 
 				p.posts.Add(posts[(int)Random.Range(0, Mathf.Round(posts.Count))]);
 				p.posts.Add(posts[(int)Random.Range(0, Mathf.Round(posts.Count))]);
