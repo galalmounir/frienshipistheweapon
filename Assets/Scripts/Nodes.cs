@@ -141,6 +141,7 @@ public class Nodes : MonoBehaviour {
 				talkUp (variable2.GetComponent<Nodes> (), input); //player node (so it knows what to subtract)
 			} else if (moveType == 10) {
 				int input = studyPts * temp;
+
 				if (row < 3 && row > 0 && column > 0 && column < 3) { //first pair is player node, rest are targets
 					int t1 = row + 1;
 					int t2 = row - 1;
@@ -157,15 +158,17 @@ public class Nodes : MonoBehaviour {
 						t3 = column - 1;
 					}
 					study (a, b, row, t3, t2, column, t1, column, input);
+					Debug.Log(string.Format("{0}, {1} here", row, column));
 				} else if ((row == 3 || row == 0) && column > 0 && column < 3) {
 					int t1 = column + 1;
 					int t2 = column - 1;
 					int t3 = row;
-					if (column == 0) {
+					if (row == 0) {
 						t3 = row + 1;
 					} else {
 						t3 = row - 1;
 					}
+					Debug.Log(string.Format("{0}, {1}, {2}, here", t1, t2,t3));
 					study (a, b, row, t1, row, t2, t3, column, input);
 				} else if ((row == 3 || row == 0) && (column == 0 || column == 3)) {
 					int t1 = row;
