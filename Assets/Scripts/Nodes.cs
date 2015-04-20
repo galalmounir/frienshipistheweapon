@@ -11,7 +11,7 @@ public class Nodes : MonoBehaviour {
 	public int cost = 10;
 	public bool immune = false, isMot = false, actionable = true, enemy, player; 
 	public bool usableE, usableP, usableN, excpetionE = false, exceptionP = false, moved= false;
-	public static string[] moves = {"hangOut", "introduce", "talk up", "Trash Talk", "Immunity", "Motivate", "Pressure", "accident", "courage", "study"};
+	public static string[] moves = {"Hang out", "Introduce me", "Talk me up", "Trash talk her", "Skip school", "Motivate", "Peer pressure", "Prank", "Liquid courage", "Study session"};
 	public string MovesType = "hangOut";
 	public GameObject manager;
 	public int youEffect = 0, themEffect= 0; 
