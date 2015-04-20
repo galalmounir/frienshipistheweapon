@@ -320,17 +320,24 @@ public class ClassRoomManager : MonoBehaviour {
 		temp.transform.FindChild("Target").GetComponent<UnityEngine.UI.Image>().sprite = target.GetComponent<UnityEngine.UI.Image>().sprite;
 		temp.transform.FindChild("Power").FindChild("Text").GetComponent<UnityEngine.UI.Text>().text = student.GetComponent<Nodes>().MovesType;
 
-
+		transform.FindChild("Scrollbar").GetComponent<UnityEngine.UI.Scrollbar>().value = 0;
 	}
 
 	public void Win(){
-
+		transform.FindChild("YouWin").gameObject.SetActive(true);
 	}
 
 	public void Lose(){
-
+		transform.FindChild("GameOver").gameObject.SetActive(true);
 	}
 
+	public void RestartLevel(){
+		Application.LoadLevel("Classroom");
+	}
+
+	public void StartMainMenu(){
+		Application.LoadLevel("Main Menu");
+	}
 	// Update is called once per frame
 	void Update () {
 	
