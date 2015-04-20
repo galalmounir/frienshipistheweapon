@@ -24,7 +24,7 @@ public class ClassRoomManager : MonoBehaviour {
 		fb.transform.FindChild("Name").GetComponent<UnityEngine.UI.Text>().text = student.GetComponent<Personality>().name;
 		fb.transform.FindChild("Profile Pic").FindChild("Pic").GetComponent<UnityEngine.UI.Image>().sprite = student.GetComponent<UnityEngine.UI.Image>().sprite;
 		fb.transform.FindChild("About").FindChild("Birthday").GetComponent<UnityEngine.UI.Text>().text = student.GetComponent<Personality>().birthday;
-		fb.transform.FindChild("Power").FindChild("Effect").GetComponent<UnityEngine.UI.Text>().text =student.GetComponent<Nodes>().MovesType +"\nYou: "+ student.GetComponent<Nodes>().youEffect+ "\nThem: "+student.GetComponent<Nodes>().themEffect+ "\n";
+		fb.transform.FindChild("Power").FindChild("Effect").GetComponent<UnityEngine.UI.Text>().text =student.GetComponent<Nodes>().MovesType +"\nYou: "+ student.GetComponent<Nodes>().youEffect+ "\nThem: "+student.GetComponent<Nodes>().themEffect+ "\nCost: "+student.GetComponent<Nodes>().cost;
 
 		for (int i=0; i<posts.Length;i++){
 			posts[i].gameObject.transform.FindChild("Post Text").GetComponent<UnityEngine.UI.Text>().text = student.GetComponent<Personality>().posts[i];
@@ -72,7 +72,14 @@ public class ClassRoomManager : MonoBehaviour {
 
 		fb.SetActive (false);
 	}
-	
+
+	public void UpdateLables(){
+		GameObject[] students = GameObject.FindGameObjectsWithTag("Student");
+		for (int i=0; i<students.Length;i++){
+			students[i].transform.FindChild("Text").GetComponent<UnityEngine.UI.Text>().text = "You: "+students[i].GetComponent<Nodes>().you + "\nThem: " +students[i].GetComponent<Nodes>().them;
+		}
+	}
+
 	public void Action(){
 		int x,y,w,z;
 		x = currentStudent/4;
@@ -83,6 +90,7 @@ public class ClassRoomManager : MonoBehaviour {
 		if(!requireSecond){
 			student.GetComponent<Nodes>().callAction(3,3);
 			student.transform.FindChild("Check").gameObject.SetActive(true);
+			UpdateLables();
 			HideFB();
 		}
 		else if(gotSecond){
@@ -90,6 +98,7 @@ public class ClassRoomManager : MonoBehaviour {
 			z = (int)(((currentTarget/4.0f)-w)/ 0.25f);
 			student.GetComponent<Nodes>().callAction(3,3,w,z);
 			student.transform.FindChild("Check").gameObject.SetActive(true);
+			UpdateLables();
 			HideFB();
 		}
 		else{
@@ -212,10 +221,10 @@ public class ClassRoomManager : MonoBehaviour {
 
 					student.transform.FindChild("Text").GetComponent<UnityEngine.UI.Text>().text = "You: "+student.GetComponent<Nodes>().you + "\nThem: " +student.GetComponent<Nodes>().them;
 
-					if(student.GetComponent<Nodes>().usableE){
+					if(student.GetComponent<Nodes>().isEnemy){
 						student.transform.FindChild("Text").GetComponent<UnityEngine.UI.Text>().color = Color.red;
 					}
-					else if (student.GetComponent<Nodes>().usableP){
+					else if (student.GetComponent<Nodes>().isFriend){
 						student.transform.FindChild("Text").GetComponent<UnityEngine.UI.Text>().color = Color.green;
 					}
 					else{

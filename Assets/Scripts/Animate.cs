@@ -23,6 +23,7 @@ public class Animate : MonoBehaviour {
 
 	public void Reset (){
 		animator.SetTrigger("Reset");
+
 	}
 
 	void DisableGrid(){
