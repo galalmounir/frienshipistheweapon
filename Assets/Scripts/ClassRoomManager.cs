@@ -10,7 +10,8 @@ public class ClassRoomManager : MonoBehaviour {
 	public bool requireSecond = false, gotSecond = false;
 	public Material selectedMat;
 	Animator animator;
-	
+	public GameObject ActionUI;
+
 	public void StartFB(int position){
 		int x,y;
 		x = position/4;
@@ -125,7 +126,7 @@ public class ClassRoomManager : MonoBehaviour {
 
 	}
 
-	void SaveScores(){
+	public void SaveScores(){
 		GameObject[] students = GameObject.FindGameObjectsWithTag("Student");
 		for (int i=0; i<students.Length;i++){
 			students[i].GetComponent<Personality>().prevYou = students[i].GetComponent<Nodes>().you;
@@ -143,6 +144,7 @@ public class ClassRoomManager : MonoBehaviour {
 		if(!requireSecond){
 			SaveScores();
 			student.GetComponent<Nodes>().callAction(3,3);
+			ActionTaken(x,y,3,3);
 			student.transform.FindChild("Check").gameObject.SetActive(true);
 			UpdateLables();
 			HideFB();
@@ -152,6 +154,7 @@ public class ClassRoomManager : MonoBehaviour {
 			z = (int)(((currentTarget/4.0f)-w)/ 0.25f);
 			SaveScores();
 			student.GetComponent<Nodes>().callAction(3,3,w,z);
+			ActionTaken(x,y,w,z);
 			student.transform.FindChild("Check").gameObject.SetActive(true);
 			UpdateLables();
 			HideFB();
@@ -176,7 +179,7 @@ public class ClassRoomManager : MonoBehaviour {
 	}
 
 	public void VisualizeAIAction(){
-
+		UpdateLables();
 	}
 
 	public void ExitError(){
@@ -266,20 +269,24 @@ public class ClassRoomManager : MonoBehaviour {
 	}
 
 	public void Rearrange(){
+		Invoke("Arrange", 1.5f);
+	}
+
+	void Arrange(){
 		for (int i=0; i<=manager.gameObject.GetComponent<GameManager>().classroom.GetUpperBound(0);i++){
 			for(int j=0; j<=manager.gameObject.GetComponent<GameManager>().classroom.GetUpperBound(1);j++){
 				GameObject student = manager.gameObject.GetComponent<GameManager>().classroom[i,j];
 				if (student.gameObject.tag == "Student"){
 					int index = i*4 + j;
-
+					
 					student.gameObject.transform.SetSiblingIndex(index);
-
+					
 					student.transform.FindChild("Check").gameObject.SetActive(false);
 					student.gameObject.GetComponent<UnityEngine.UI.Button>().onClick.RemoveAllListeners();
 					student.gameObject.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => {HandleClick(index);});
-
+					
 					student.transform.FindChild("Text").GetComponent<UnityEngine.UI.Text>().text = "You: "+student.GetComponent<Nodes>().you + "\nThem: " +student.GetComponent<Nodes>().them;
-
+					
 					if(student.GetComponent<Nodes>().isEnemy){
 						student.transform.FindChild("Text").GetComponent<UnityEngine.UI.Text>().color = Color.red;
 					}
@@ -294,12 +301,26 @@ public class ClassRoomManager : MonoBehaviour {
 		}
 		AnimationRearrange();
 	}
-
 	public void AnimationRearrange(){
 		GameObject[] students = GameObject.FindGameObjectsWithTag("Student");
 		for (int i=0; i<students.Length;i++){
 			students[i].GetComponent<Animate>().Reset();
 		}
+	}
+
+	public void ActionTaken(int x, int y, int w, int z){
+		GameObject target = manager.gameObject.GetComponent<GameManager>().classroom[w,z];
+		GameObject student = manager.gameObject.GetComponent<GameManager>().classroom[x,y];
+
+		GameObject temp = (GameObject) Instantiate(ActionUI,transform.position,Quaternion.identity);
+		temp.transform.SetParent(transform.FindChild("History").FindChild("Actions").transform);
+		temp.transform.localScale= new Vector3(1,1,1);
+
+		temp.transform.FindChild("Attacker").GetComponent<UnityEngine.UI.Image>().sprite = student.GetComponent<UnityEngine.UI.Image>().sprite;
+		temp.transform.FindChild("Target").GetComponent<UnityEngine.UI.Image>().sprite = target.GetComponent<UnityEngine.UI.Image>().sprite;
+		temp.transform.FindChild("Power").FindChild("Text").GetComponent<UnityEngine.UI.Text>().text = student.GetComponent<Nodes>().MovesType;
+
+
 	}
 
 	public void Win(){

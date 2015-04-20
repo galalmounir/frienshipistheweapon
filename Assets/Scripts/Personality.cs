@@ -10,7 +10,8 @@ public class Personality : MonoBehaviour {
 	public int prevYou, prevThem;
 	// Use this for initialization
 	void Start () {
-	
+		prevYou = GetComponent<Nodes>().you;
+		prevThem = GetComponent<Nodes>().them;
 	}
 	
 	// Update is called once per frame
