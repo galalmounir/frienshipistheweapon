@@ -113,7 +113,6 @@ public class Nodes : MonoBehaviour {
 		if (isMot) {
 			temp = 2;
 		}
-		Debug.Log(string.Format("{0} here", temp));
 		if (actionable) {
 			//Debug.Log(string.Format("{0} here", moveType));
 			//Debug.Log(string.Format("{0} here", a));
@@ -127,19 +126,11 @@ public class Nodes : MonoBehaviour {
 				talkUp (variable2.GetComponent<Nodes> (), input); //player node (so it knows what to subtract)
 			} else if (moveType == 10) {
 				int input = studyPts * temp;
-				Debug.Log(string.Format("{0} a", row));
-				Debug.Log(string.Format("{0} b", column));
 				if (row < 3 && row > 0 && column > 0 && column < 3) { //first pair is player node, rest are targets
 					int t1 = row + 1;
 					int t2 = row - 1;
 					int t3 = column + 1;
 					int t4 = column - 1;
-//					Debug.Log(string.Format("{0} a", a));
-//					Debug.Log(string.Format("{0} b", b));
-//					Debug.Log(string.Format("{0} r1", t1));
-//					Debug.Log(string.Format("{0} r1", t2));
-//					Debug.Log(string.Format("{0} c1", t3));
-//					Debug.Log(string.Format("{0} c2", t4));
 					study (a, b, row, t3, row, t4, t2, column, t1, column, input);
 				} else if (row < 3 && row > 0 && (column == 0 || column == 3)) {
 					int t1 = row + 1;
@@ -291,16 +282,16 @@ public class Nodes : MonoBehaviour {
 			if (n1.enemy) {
 				enemyCh (cost);
 				if (value){
-					n2.enemyCh (-input);
+					n2.enemyCh (input);
 				}else{
-					n2.playerCh(input);
+					n2.playerCh(-input);
 				}
 			} else if (n1.player) {
 				playerCh (cost);
 				if (value){
-					n2.playerCh (-input);
+					n2.playerCh (input);
 				}else{
-					n2.enemyCh(input);
+					n2.enemyCh(-input);
 				}
 			}
 			moved = true;
@@ -402,7 +393,7 @@ public class Nodes : MonoBehaviour {
 		Nodes nod4 = variable4.GetComponent<Nodes> ();
 		Nodes nod5 = variable5.GetComponent<Nodes> ();
 
-		Debug.Log("got here in the function");
+		//Debug.Log("got here in the function");
 
 		if (usableE || excpetionE) {
 			enemyCh (cost);
@@ -422,7 +413,7 @@ public class Nodes : MonoBehaviour {
 			playerCh (cost);
 			if (!nod2.player && !nod2.enemy && !nod2.immune){
 				nod2.playerCh(-value);
-				Debug.Log("got here in the function");
+				//Debug.Log("got here in the function");
 			}
 			if (!nod3.player && !nod3.enemy && !nod3.immune){
 				nod3.playerCh(-value);
