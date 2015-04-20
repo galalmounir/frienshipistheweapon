@@ -43,7 +43,7 @@ public class Nodes : MonoBehaviour {
 //		int studyPts = 7;
 		
 		moveType = (int)type;
-		MovesType = moves[moveType];
+		MovesType = moves[moveType-1];
 		if (moveType == 1 || moveType == 9 || moveType == 2) {
 			youEffect = 10;
 			themEffect = 0;
@@ -111,6 +111,7 @@ public class Nodes : MonoBehaviour {
 		int temp = 1;
 		
 		if (isMot) {
+			Debug.Log(string.Format("MOTIVATED"));
 			temp = 2;
 		}
 		if (actionable) {
@@ -245,6 +246,13 @@ public class Nodes : MonoBehaviour {
 
 	public void isMotivated(){
 		isMot = false;
+	}
+
+	public int random(){
+		if (isMot) {
+			return 1;
+		}
+		return 2;
 	}
 
 	public void isPranked(bool input){
