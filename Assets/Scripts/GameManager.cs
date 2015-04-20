@@ -115,7 +115,7 @@ public class GameManager : MonoBehaviour {
 				p.posts.Add(posts[(int)Random.Range(0, Mathf.Round(posts.Count))]);
 				p.posts.Add(posts[(int)Random.Range(0, Mathf.Round(posts.Count))]);
 
-				Actions randAction = (Actions)Random.Range(1, 10);
+				Actions randAction = (Actions)Random.Range(2, 11);
 
 				n.GetComponent<Nodes> ().location (i, j);
 				n.GetComponent<Nodes> ().nodeAction(randAction);
@@ -125,13 +125,13 @@ public class GameManager : MonoBehaviour {
 		//instantiate player nodes
 		classroom [0, 0].tag = "Enemy";
 		enemy = classroom [0,0];
-		enemy.GetComponent<Nodes> ().nodeAction(Actions.hang);
+		enemy.GetComponent<Nodes> ().nodeAction((Actions) 2);
 		enemy.GetComponent<Nodes> ().enemy = true;
 		//details
 
 		classroom [classroom.GetUpperBound(0),classroom.GetUpperBound(1)].tag = "Player";
 		player = classroom [classroom.GetUpperBound(0),classroom.GetUpperBound(1)];
-		player.GetComponent<Nodes> ().nodeAction(Actions.hang);
+		player.GetComponent<Nodes> ().nodeAction((Actions) 2);
 		player.GetComponent<Nodes> ().set();
 
 		SetDefaultScores ();
