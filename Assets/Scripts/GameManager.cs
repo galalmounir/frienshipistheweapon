@@ -115,6 +115,7 @@ public class GameManager : MonoBehaviour {
 
 				n.GetComponent<Nodes> ().location (i, j);
 				n.GetComponent<Nodes> ().nodeAction(randAction);
+				n.GetComponent<Nodes> ().cost = 5;
 				//same thing for pictures
 			}
 		}

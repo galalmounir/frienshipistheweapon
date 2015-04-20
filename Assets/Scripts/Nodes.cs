@@ -48,27 +48,19 @@ public class Nodes : MonoBehaviour {
 	}
 
 	public void nodeAction(Actions type){
-		cost = 10;
-//		int hangPts = 10;
-//		int introPts = 10;
-//		int talkUpPts = 3;
-//		int trashTalkPts = 10;
-//		int couragePts = 10;
-//		int studyPts = 7;
-		
 		moveType = (int)type;
 		MovesType = moves[moveType-1];
 		if (moveType == 1 || moveType == 9 || moveType == 2) {
-			youEffect = 10;
+			youEffect = introPts;
 			themEffect = 0;
 		} else if (moveType == 4) {
 			youEffect = 0;
-			themEffect = -10;
+			themEffect = -trashTalkPts;
 		} else if (moveType == 3) {
-			youEffect = 5;
+			youEffect = talkUpPts;
 			themEffect = 0;
 		} else if (moveType == 10) {
-			youEffect = 7;
+			youEffect = studyPts;
 			themEffect = 0;
 		} else {
 			youEffect = 0;
@@ -85,7 +77,7 @@ public class Nodes : MonoBehaviour {
 	public int totalScore{
 		get{
 			return you - them;
-		}
+		} 
 	}
 
 	public bool isEnemy{
