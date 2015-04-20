@@ -175,6 +175,10 @@ public class ClassRoomManager : MonoBehaviour {
 		}
 	}
 
+	public void AIAction(){
+
+	}
+
 	public void ExitError(){
 		GameObject fb = this.transform.FindChild("FB").gameObject;
 		GameObject students = this.transform.FindChild("Students").gameObject;
