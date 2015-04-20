@@ -121,13 +121,13 @@ public class GameManager : MonoBehaviour {
 		//instantiate player nodes
 		classroom [0, 0].tag = "Enemy";
 		enemy = classroom [0,0];
-		enemy.GetComponent<Nodes> ().nodeAction((Actions) 1);
+		enemy.GetComponent<Nodes> ().nodeAction((Actions) ((int)Actions.hang + 1) );
 		enemy.GetComponent<Nodes> ().enemy = true;
 		//details
 
 		classroom [classroom.GetUpperBound(0),classroom.GetUpperBound(1)].tag = "Player";
 		player = classroom [classroom.GetUpperBound(0),classroom.GetUpperBound(1)];
-		player.GetComponent<Nodes> ().nodeAction((Actions) 1);
+		player.GetComponent<Nodes> ().nodeAction((Actions) ((int)Actions.hang + 1) );
 		player.GetComponent<Nodes> ().set();
 
 		SetDefaultScores ();
@@ -149,6 +149,7 @@ public class GameManager : MonoBehaviour {
 
 	void SetDefaultScores(){
 		classroom [3, 2].GetComponent<Nodes> ().you = 30;
+		classroom [3, 2].GetComponent<Nodes> ().nodeAction((Actions) ((int)Actions.pressure + 1) );
 		classroom [2, 3].GetComponent<Nodes> ().you = 30;
 		classroom [0, 1].GetComponent<Nodes> ().them = 30;
 		classroom [1, 1].GetComponent<Nodes> ().them = 30;
@@ -226,7 +227,11 @@ public class GameManager : MonoBehaviour {
 	}
 
 	void EnemyTurn(){
-
+		for (int i =0; i < classroom.GetLength(0); i++) {
+			for (int j =0; j < classroom.GetLength(1); j++) {
+				classroom[i,j].GetComponent<Nodes>().status();
+			}
+		}
 		enemy.GetComponent<AI> ().assKicker ();
 		classManager.GetComponent<ClassRoomManager> ().VisualizeAIAction ();
 	}
