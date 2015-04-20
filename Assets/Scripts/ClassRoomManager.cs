@@ -86,7 +86,8 @@ public class ClassRoomManager : MonoBehaviour {
 		y = (int)(((currentStudent/4.0f)-x)/ 0.25f);
 
 		GameObject student = manager.gameObject.GetComponent<GameManager>().classroom[x,y];
-
+		Debug.Log (student.GetComponent<Nodes>().row.ToString() + student.GetComponent<Nodes>().column.ToString());
+		//student.GetComponent<Nodes>().location(x,y);
 		if(!requireSecond){
 			student.GetComponent<Nodes>().callAction(3,3);
 			student.transform.FindChild("Check").gameObject.SetActive(true);
