@@ -125,13 +125,13 @@ public class GameManager : MonoBehaviour {
 		//instantiate player nodes
 		classroom [0, 0].tag = "Enemy";
 		enemy = classroom [0,0];
-		enemy.GetComponent<Nodes> ().nodeAction((Actions) 2);
+		enemy.GetComponent<Nodes> ().nodeAction((Actions) 1);
 		enemy.GetComponent<Nodes> ().enemy = true;
 		//details
 
 		classroom [classroom.GetUpperBound(0),classroom.GetUpperBound(1)].tag = "Player";
 		player = classroom [classroom.GetUpperBound(0),classroom.GetUpperBound(1)];
-		player.GetComponent<Nodes> ().nodeAction((Actions) 2);
+		player.GetComponent<Nodes> ().nodeAction((Actions) 1);
 		player.GetComponent<Nodes> ().set();
 
 		SetDefaultScores ();
