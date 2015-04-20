@@ -43,7 +43,7 @@ public class Nodes : MonoBehaviour {
 //		int studyPts = 7;
 		
 		moveType = (int)type;
-		MovesType = moves[moveType-1];
+		MovesType = moves[moveType];
 		if (moveType == 1 || moveType == 9 || moveType == 2) {
 			youEffect = 10;
 			themEffect = 0;
@@ -282,16 +282,16 @@ public class Nodes : MonoBehaviour {
 			if (n1.enemy) {
 				enemyCh (cost);
 				if (value){
-					n2.enemyCh (input);
+					n2.playerCh (input);
 				}else{
-					n2.playerCh(-input);
+					n2.enemyCh(-input);
 				}
 			} else if (n1.player) {
 				playerCh (cost);
 				if (value){
-					n2.playerCh (input);
+					n2.enemyCh (input);
 				}else{
-					n2.enemyCh(-input);
+					n2.playerCh(-input);
 				}
 			}
 			moved = true;
