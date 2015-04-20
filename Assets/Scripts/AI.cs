@@ -21,6 +21,17 @@ public class AI : MonoBehaviour {
 		//Nodes playerN = n2;
 		//bool playedAlready = false;
 
+		bool one = false;
+		bool two = false;
+		bool three = false;
+		bool four = false;
+		bool five = false;
+		bool six = false;
+		bool seven = false;
+		//bool eight = false;
+		bool nine = false;
+		bool ten = false;
+
 		List<Nodes> iterF = new List<Nodes> {};
 		List<int> rowF = new List<int> ();
 		List<int> columnF = new List<int> ();
@@ -75,49 +86,71 @@ public class AI : MonoBehaviour {
 			//Debug.Log(string.Format("{0}",iterF [i].moveType));
 			if (iterF [i].moveType == 6) {
 				for (int x = 0; x < friends; x++) {
-					if (x != i && ((iterF [x].moveType == 3 || iterF [x].moveType == 10) && !usedAI.Contains (6))) {
+					if (x != i && ((iterF [x].moveType == 3 || iterF [x].moveType == 10) && !six)) {
 						GameObject variable = manager.GetComponent<GameManager> ().classroom [rowF [i], columnF [i]];
 						variable.GetComponent<Nodes> ().callAction (0, 0, rowF [x], columnF [x]);
 						usedAI.Add (6);
 						Debug.Log(string.Format("first"));
+						GameObject variable3 = manager.GetComponent<GameManager> ().classroom [rowF [x], columnF [x]];
+						variable3.GetComponent<Nodes> ().callAction(0,0);
+						if (iterF [x].moveType == 3){
+							three = true;
+							if (!three){
+								Debug.Log ("contains it");
+							}
+						}else if (iterF [x].moveType == 10){
+							ten = true;
+						}
+						break;
 					}
 				}
 				for (int x = 0; x < friends; x++) {
-					if (x != i && (iterF[i].moveType == 4 || iterF[i].moveType == 2|| iterF[i].moveType == 9) && !usedAI.Contains (6)) {
+					if (x != i && (iterF[i].moveType == 4 || iterF[i].moveType == 2|| iterF[i].moveType == 9) && !six) {
 						GameObject variable = manager.GetComponent<GameManager> ().classroom [rowF [i], columnF [i]];
 						variable.GetComponent<Nodes> ().callAction (0, 0, rowF [x], columnF [x]);
-						usedAI.Add (6);
+						six = true;
 						Debug.Log(string.Format("second"));
-					}
+					}break;
 				}
 			}
+			if (!three){
+				Debug.Log ("second check ");
+			}
 			for (int z = 0; z < friends; z++) {
-				if((iterF[z].moveType == 3 && !usedAI.Contains(3))|| (iterF[z].moveType == 10 && !usedAI.Contains(10))){
+				if((iterF[z].moveType == 3 && !three)|| (iterF[z].moveType == 10 && !ten)){
 					//Debug.Log(string.Format("{0}",iterF[i].moveType));
-					if (iterF[z].moveType == 3 && !usedAI.Contains(3)){
+					if (iterF[z].moveType == 3 && !three){
 						GameObject variable = manager.GetComponent<GameManager> ().classroom[rowF [z],columnF[z]];
 						//variable.GetComponent<Nodes> ().isMotivated(varA);
 						variable.GetComponent<Nodes> ().callAction(0,0);
-						usedAI.Add(3);
+						three = true;
 						//					//Debug.Log(string.Format("{0}",3));
 					}
-					if (iterF[z].moveType == 10 && !usedAI.Contains(10)){
+					if (iterF[z].moveType == 10 && !ten){
 						GameObject variable = manager.GetComponent<GameManager> ().classroom[rowF [z],columnF[z]];
 						//variable.GetComponent<Nodes> ().isMotivated(varB);
 						variable.GetComponent<Nodes> ().callAction(0,0);
-						usedAI.Add(10);
+						ten = true;
 					}
 					
 				}
 			}
-			Debug.Log(string.Format("{0}",iterF [i].moveType));
+			if (!three){
+			Debug.Log(string.Format("Failed again"));
+			}
 			if(iterF[i].moveType == 4 || iterF[i].moveType == 2|| iterF[i].moveType == 9){
 				bool check = false;
 				for (int k = 0; k < enemmies; k++){
 					if ((iterE[k].totalScore -5) < 10 && !usedAI.Contains(iterF[i].moveType)){
 						GameObject variable = manager.GetComponent<GameManager> ().classroom [rowF [i], columnF [i]];
 						variable.GetComponent<Nodes> ().callAction (0, 0, rowE [k], rowE [k]);
-						usedAI.Add(iterF[i].moveType);
+						if (iterF[i].moveType == 4){
+							four = true;
+						}else if (iterF[i].moveType == 2){
+							two = true;
+						}else if (iterF[i].moveType == 9){
+							nine = true;
+						}
 						//Debug.Log(string.Format("sdfadsfasflkewjf"));
 						check = true;
 						break;
@@ -126,22 +159,40 @@ public class AI : MonoBehaviour {
 						//Debug.Log(string.Format("{0},{1}",rowN [k],rowN [k]));
 						variable.GetComponent<Nodes> ().callAction (0, 0, 2,2);
 						usedAI.Add(iterF[i].moveType);
-
+						if (iterF[i].moveType == 4){
+							four = true;
+						}else if (iterF[i].moveType == 2){
+							two = true;
+						}else if (iterF[i].moveType == 9){
+							nine = true;
+						}
 						check = true;
 						break;
 					}
 				}
 				if (!check){
 				for (int k = 0; k < enemmies; k++){
-					if (!usedAI.Contains(iterF[i].moveType)){
+						if ((iterF[i].moveType == 4 && ! four) || (iterF[i].moveType == 2 && !two)|| (iterF[i].moveType == 9 && !nine)){
 						GameObject variable = manager.GetComponent<GameManager> ().classroom [rowF [i], columnF [i]];
 						variable.GetComponent<Nodes> ().callAction (0, 0, rowE [k], rowE [k]);
-						usedAI.Add(iterF[i].moveType);
+							if (iterF[i].moveType == 4){
+								four = true;
+							}else if (iterF[i].moveType == 2){
+								two = true;
+							}else if (iterF[i].moveType == 9){
+								nine = true;
+							}
 						//Debug.Log(string.Format("sdfadsfasflkewjf"));
 					}else if ((!usedAI.Contains(iterN[i].moveType))){
 						GameObject variable = manager.GetComponent<GameManager> ().classroom [rowF [i], columnF [i]];
 						variable.GetComponent<Nodes> ().callAction (0, 0, rowN [k], rowN [k]);
-						usedAI.Add(iterF[i].moveType);
+							if (iterF[i].moveType == 4){
+								four = true;
+							}else if (iterF[i].moveType == 2){
+								two = true;
+							}else if (iterF[i].moveType == 9){
+								nine = true;
+							}
 						//Debug.Log(string.Format("sdfadsfasflkewjf"));
 					}
 				}
