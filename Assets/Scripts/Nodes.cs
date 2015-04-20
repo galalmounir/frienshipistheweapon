@@ -142,7 +142,10 @@ public class Nodes : MonoBehaviour {
 			//Debug.Log(string.Format("{0} here", moveType));
 			//Debug.Log(string.Format("{0} here", a));
 			//Debug.Log(string.Format("{0} here", b));
-			 if (moveType == 3) {
+			if (moveType == 1 && !variable2.GetComponent<Nodes> ().immune) {
+				int input = hangPts * temp;
+				hangOut (variable2.GetComponent<Nodes> (), input); //target node
+			} else if (moveType == 3) {
 				//Debug.Log(string.Format("got here at least"));
 				int input = talkUpPts * temp;
 				talkUp (variable2.GetComponent<Nodes> (), input); //player node (so it knows what to subtract)
@@ -167,10 +170,7 @@ public class Nodes : MonoBehaviour {
 
 
 		if (actionable) {
-		if (moveType == 1 && !variable2.GetComponent<Nodes> ().immune) {
-			int input = hangPts * temp;
-			hangOut (variable2.GetComponent<Nodes> (), input); //target node
-		}else if (moveType == 2 && !variable2.GetComponent<Nodes> ().immune) {
+			if (moveType == 2 && !variable2.GetComponent<Nodes> ().immune) {
 				int input = introPts * temp;
 				introTT (variable.GetComponent<Nodes> (), variable2.GetComponent<Nodes> (), input, true); //player node and target node
 			} else if (moveType == 4 && !variable2.GetComponent<Nodes> ().immune) {
