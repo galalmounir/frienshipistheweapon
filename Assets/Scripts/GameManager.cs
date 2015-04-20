@@ -43,9 +43,6 @@ public class GameManager : MonoBehaviour {
 		"Malcom","Jude","Cletus","Ernesto","Lela",
 		"Peggy","Tom","Agatha","Brandie","Lyman",
 		"Leida","Celesta","Mariella","Azalee","Alden"};
-	List<string> moves = new List<string> { 
-		"HangOut","TalkUp","TrashTalk","Introduce","Immunity",
-		"Motivate","PeerPressure","Prank","LiquidCourage","StudySession"};
 	List<string> posts = new List<string> {
 		"Do you prefer ___ or ___?","This or that? This, this or that?",
 		"The best photograph I ever took was ____.","The worst photograph I ever took was ____.",
@@ -67,7 +64,6 @@ public class GameManager : MonoBehaviour {
 		" it's so hot out!"," it's so cold out!","____ just broke up with me!" ,"slept in...",
 		" it's snowing!","sun!","rain rain go away..."," RAINBOW!"};
 	public int week = 1;
-	bool pauseForAnimation = true;
 	public WinState currentState = WinState.Continue;
 	public GameObject enemy;
 	public GameObject player;
@@ -139,11 +135,15 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public List<Nodes> AdjacentNodes(int x, int y){
-		List<Nodes> adjList;
-		if (x > 0) adjList.Add (classroom [x - 1, y]);
-		if (x < classroom.GetUpperBound(0)) adjList.Add (classroom [x + 1, y]);
-		if (y > 0) adjList.Add (classroom [x, y-1]);
-		if (y < classroom.GetUpperBound(1)) adjList.Add (classroom [x, y+1]);
+		List<Nodes> adjList = new List<Nodes>();
+		if (x > 0 && !(x - 1 == 0 && y==0)) 
+			adjList.Add(classroom [x - 1, y].GetComponent<Nodes>());
+		if (x < classroom.GetUpperBound(0) && !(x +1 == classroom.GetUpperBound(0) && y==classroom.GetUpperBound(1))) 
+			adjList.Add (classroom [x + 1, y].GetComponent<Nodes>());
+		if (y > 0 && !(x == 0 && y-1==0)) 
+			adjList.Add (classroom [x, y-1].GetComponent<Nodes>());
+		if (y < classroom.GetUpperBound(1) && !(x == classroom.GetUpperBound(0) && y+1==classroom.GetUpperBound(1))) 
+			adjList.Add (classroom [x, y+1].GetComponent<Nodes>());
 		return adjList;
 	}
 
@@ -246,8 +246,6 @@ public class GameManager : MonoBehaviour {
 			}
 		}
 		Organize ();
-
-		//get rid of this for animations
 		classManager.GetComponent<ClassRoomManager>().Rearrange ();
 	}
 
