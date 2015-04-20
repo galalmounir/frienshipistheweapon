@@ -65,6 +65,19 @@ public class Nodes : MonoBehaviour {
 			
 	}
 
+	public static string[] moves = {"Hang out", "Introduce me", "Talk me up", "Trash talk her", "Skip school", "Motivate", "Peer pressure", "Prank", "Liquid courage", "Study session"};
+	public static string[] moveDescription = {
+		"Hang out with someone to win their approval", 
+		"Help me win over your friend", 
+		"Make me look good in front of the class", 
+		"Trash talk THAT girl to your friend",
+		"Get someone to miss school to avoid HER friends", 
+		"Motivate someone to help me even more", 
+		"Force someone to help me", 
+		"Prank someone so they can't help her", 
+		"Give someone some courage, see what happens", 
+		"Let's all study together!"};
+
 	public void location(int in1, int in2){
 		row = in1;
 		column = in2;
