@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class Personality : MonoBehaviour {
-	public string name;
+	public string fullName;
 	public string birthday;
 	public List<string> posts;
 	// Use this for initialization

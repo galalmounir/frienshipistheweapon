@@ -122,7 +122,7 @@ public class GameManager : MonoBehaviour {
 				firstNames.Remove(randFirst);
 				string randLast = lastNames[(int)Random.Range(0, Mathf.Round(lastNames.Count - 1))];
 				lastNames.Remove(randLast);
-				p.name = randFirst+randLast;
+				p.fullName = randFirst+randLast;
 
 				p.posts.Add(posts[(int)Random.Range(0, Mathf.Round(posts.Count - 1))]);
 				p.posts.Add(posts[(int)Random.Range(0, Mathf.Round(posts.Count - 1))]);
@@ -219,7 +219,7 @@ public class GameManager : MonoBehaviour {
 	}
 
 	void EnemyTurn(){
-		//enemy.GetComponent<AI> ().executeNextTurn ();
+		enemy.GetComponent<AI> ().assKicker ();
 	}
 
 	void EndTurn(){
