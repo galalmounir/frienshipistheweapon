@@ -16,7 +16,6 @@ public class ClassRoomManager : MonoBehaviour {
 		x = position/4;
 		y = (int)(((position/4.0f)-x)/ 0.25f);
 		currentStudent = position;
-		Debug.Log ("Current Student= "+x+y);
 
 		GameObject student = manager.gameObject.GetComponent<GameManager>().classroom[x,y];
 		GameObject fb = this.transform.FindChild("FB").gameObject;
@@ -76,7 +75,7 @@ public class ClassRoomManager : MonoBehaviour {
 	public void UpdateLables(){
 		GameObject[] students = GameObject.FindGameObjectsWithTag("Student");
 		for (int i=0; i<students.Length;i++){
-			PlayParticles(i);
+			PlayParticles(i+1);
 			students[i].transform.FindChild("Text").GetComponent<UnityEngine.UI.Text>().text = "You: "+students[i].GetComponent<Nodes>().you + "\nThem: " +students[i].GetComponent<Nodes>().them;
 		}
 	}
@@ -85,12 +84,10 @@ public class ClassRoomManager : MonoBehaviour {
 		int x,y;
 		x = i/4;
 		y = (int)(((i/4.0f)-x)/ 0.25f);
-		Debug.Log(x.ToString()+y.ToString());
 		GameObject student = manager.gameObject.GetComponent<GameManager>().classroom[x,y];
-		int newYou = - student.GetComponent<Personality>().prevYou + student.GetComponent<Nodes>().you;
-		int newThem = student.GetComponent<Personality>().prevThem - student.GetComponent<Nodes>().them;
+		int newYou = student.GetComponent<Nodes>().you - student.GetComponent<Personality>().prevYou;
+		int newThem = student.GetComponent<Nodes>().them - student.GetComponent<Personality>().prevThem;
 
-		Debug.Log (newYou.ToString() + newThem.ToString());
 		if (newYou >0){
 			student.transform.FindChild("Gain").GetComponent<ParticleSystem>().Play();
 		}
