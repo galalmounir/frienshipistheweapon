@@ -152,7 +152,6 @@ public class GameManager : MonoBehaviour {
 		classroom [3, 2].GetComponent<Nodes> ().nodeAction((Actions) ((int)Actions.pressure + 1) );
 		classroom [2, 3].GetComponent<Nodes> ().you = 30;
 		classroom [0, 1].GetComponent<Nodes> ().them = 30;
-		classroom [1, 1].GetComponent<Nodes> ().them = 30;
 		classroom [1, 0].GetComponent<Nodes> ().them = 30;
 	}
 
