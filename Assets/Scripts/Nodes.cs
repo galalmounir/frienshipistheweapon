@@ -4,14 +4,14 @@ using System.Collections.Generic;
 public enum Actions {hang, intro, talkup, trash, immunity, motivate, pressure, accident, courage, study};
 public class Nodes : MonoBehaviour {
 	
-	public static int row, column;
+	public int row, column;
 	public int moveType = 1;
 	public int you = 0;
 	public int them = 0;
 	public int cost = 10;
 	public bool immune = false, isMot = false, actionable = true, enemy, player; 
 	public bool usableE, usableP, usableN, excpetionE = false, exceptionP = false, moved= false;
-	public static string[] moves = {"Hang out", "Introduce me", "Talk me up", "Trash talk her", "Skip school", "Motivate", "Peer pressure", "Prank", "Liquid courage", "Study session"};
+	public static string[] moves = {"hangOut", "introduce", "talk up", "Trash Talk", "Immunity", "Motivate", "Pressure", "accident", "courage", "study"};
 	public string MovesType = "hangOut";
 	public GameObject manager;
 	public int youEffect = 0, themEffect= 0; 
@@ -127,11 +127,19 @@ public class Nodes : MonoBehaviour {
 				talkUp (variable2.GetComponent<Nodes> (), input); //player node (so it knows what to subtract)
 			} else if (moveType == 10) {
 				int input = studyPts * temp;
+				Debug.Log(string.Format("{0} a", row));
+				Debug.Log(string.Format("{0} b", column));
 				if (row < 3 && row > 0 && column > 0 && column < 3) { //first pair is player node, rest are targets
 					int t1 = row + 1;
 					int t2 = row - 1;
 					int t3 = column + 1;
 					int t4 = column - 1;
+//					Debug.Log(string.Format("{0} a", a));
+//					Debug.Log(string.Format("{0} b", b));
+//					Debug.Log(string.Format("{0} r1", t1));
+//					Debug.Log(string.Format("{0} r1", t2));
+//					Debug.Log(string.Format("{0} c1", t3));
+//					Debug.Log(string.Format("{0} c2", t4));
 					study (a, b, row, t3, row, t4, t2, column, t1, column, input);
 				} else if (row < 3 && row > 0 && (column == 0 || column == 3)) {
 					int t1 = row + 1;
@@ -394,7 +402,9 @@ public class Nodes : MonoBehaviour {
 		Nodes nod4 = variable4.GetComponent<Nodes> ();
 		Nodes nod5 = variable5.GetComponent<Nodes> ();
 
-		if (nod1.enemy) {
+		Debug.Log("got here in the function");
+
+		if (usableE || excpetionE) {
 			enemyCh (cost);
 			if (!nod2.player && !nod2.enemy && !nod2.immune){
 				nod2.enemyCh(-value);
@@ -408,10 +418,11 @@ public class Nodes : MonoBehaviour {
 			if (!nod5.player && !nod5.enemy && !nod5.immune){
 				nod5.enemyCh(-value);
 			}
-		} else if (nod1.player) {
+		} else if (usableP || exceptionP) {
 			playerCh (cost);
 			if (!nod2.player && !nod2.enemy && !nod2.immune){
 				nod2.playerCh(-value);
+				Debug.Log("got here in the function");
 			}
 			if (!nod3.player && !nod3.enemy && !nod3.immune){
 				nod3.playerCh(-value);
@@ -436,7 +447,7 @@ public class Nodes : MonoBehaviour {
 		Nodes nod3 = variable3.GetComponent<Nodes> ();
 		Nodes nod4 = variable4.GetComponent<Nodes> ();
 		
-		if (nod1.enemy) {
+		if (usableE || excpetionE) {
 			enemyCh (cost);
 			if (!nod2.player && !nod2.enemy && !nod2.immune){
 				nod2.enemyCh(-value);
@@ -445,9 +456,9 @@ public class Nodes : MonoBehaviour {
 				nod3.enemyCh(-value);
 			}
 			if (!nod4.player && !nod4.enemy && !nod4.immune){
-				nod4.enemyCh(-value);
+				nod4.enemyCh(-value);									//CREATE A FUNCTION THAT OUPUTS BOOL IN NODES	
 			}
-		} else if (nod1.player) {
+		} else if (usableP || exceptionP) {
 			playerCh (cost);
 			if (!nod2.player && !nod2.enemy && !nod2.immune){
 				nod2.playerCh(-value);
@@ -461,6 +472,7 @@ public class Nodes : MonoBehaviour {
 		}
 		moved = true;
 	}
+
 	public void study(int n1, int n2,int n3,int n4, int n5, int n6, int value){
 		GameObject variable1 = manager.GetComponent<GameManager>().classroom[n1,n2];
 		GameObject variable2 = manager.GetComponent<GameManager>().classroom[n3,n4];
@@ -469,7 +481,7 @@ public class Nodes : MonoBehaviour {
 		Nodes nod2 = variable2.GetComponent<Nodes> ();
 		Nodes nod3 = variable3.GetComponent<Nodes> ();
 		
-		if (nod1.enemy) {
+		if (usableE || excpetionE) {
 			enemyCh (cost);
 			if (!nod2.player && !nod2.enemy && !nod2.immune){
 				nod2.enemyCh(-value);
@@ -477,7 +489,7 @@ public class Nodes : MonoBehaviour {
 			if (!nod3.player && !nod3.enemy && !nod3.immune){
 				nod3.enemyCh(-value);
 			}
-		} else if (nod1.player) {
+		} else if (usableP || exceptionP) {
 			playerCh (cost);
 			if (!nod2.player && !nod2.enemy && !nod2.immune){
 				nod2.playerCh(-value);
