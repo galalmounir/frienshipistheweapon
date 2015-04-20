@@ -21,6 +21,8 @@ public class Nodes : MonoBehaviour {
 	public int trashTalkPts = 10;
 	public int couragePts = 10;
 	public int studyPts = 7;
+	public int immuneInt =0;
+	public int accidentInt = 0;
 
 	void Update () {
 	}
@@ -98,9 +100,21 @@ public class Nodes : MonoBehaviour {
 			usableE = false;
 		}
 
-		isImmune ();
+		if (immuneInt > 0) {
+			isImmune (true);
+			immuneInt = immuneInt - 1;
+		} else {
+			isImmune ();
+		}
+		if (accidentInt > 0) {
+			isPranked (true);
+			accidentInt = accidentInt - 1;
+		} else {
+			isPranked ();
+		}
+
+
 		isMotivated ();
-		isPranked ();
 		peerPressure ();
 		moved = false;
 	}
@@ -239,7 +253,15 @@ public class Nodes : MonoBehaviour {
 	public void isImmune(){
 		immune = false;
 	}
+
+	public void becomeImmune(){
+		immuneInt = immuneInt + 2;
+	}
 		
+	public void haveAccident(){
+		accidentInt = accidentInt + 2;
+	}
+
 	public void isMotivated(bool input){
 		isMot = input;
 	}
@@ -285,7 +307,7 @@ public class Nodes : MonoBehaviour {
 
 
 	public void introTT(Nodes n1, Nodes n2, int input, bool value){
-		int sum = n2.getRow () + n2.getColumn ();
+		//int sum = n2.getRow () + n2.getColumn ();
 		//if ((row + column) - (sum) == 1 || (row + column) - (sum) == -1) {
 			if (n1.enemy) {
 				enemyCh (cost);
@@ -335,7 +357,7 @@ public class Nodes : MonoBehaviour {
 		} else if (n1.player) {
 			playerCh (cost);
 		}
-		n2.isImmune (true);
+		n2.becomeImmune ();
 		moved = true;
 	}
 
@@ -373,7 +395,7 @@ public class Nodes : MonoBehaviour {
 		} else if (n1.player) {
 			playerCh (cost);
 		}
-		n2.isPranked(false);
+		n2.haveAccident();
 		moved = true;
 	}
 
