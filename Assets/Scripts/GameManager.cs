@@ -97,45 +97,43 @@ public class GameManager : MonoBehaviour {
 	}
 	// Use this for initialization
 	void Start () {
-		//instantiate player nodes
-		enemy = classroom [0,0];
-		enemy.GetComponent<Nodes> ().location (0, 0);
-		enemy.GetComponent<Nodes> ().enemy = true;
-		//details
-
-		player = classroom [classroom.GetUpperBound(0),classroom.GetUpperBound(1)];
-		player.GetComponent<Nodes> ().location (classroom.GetUpperBound(0),classroom.GetUpperBound(1));
-		player.GetComponent<Nodes> ().set();
-		//details
-
 		//instantiate all neutral here
 		for (int i =0; i < classroom.GetLength(0); i++) {
 			for (int j =0; j < classroom.GetLength(1); j++) {
-				if((i==0&&j==0)||(i==classroom.GetUpperBound(0)&&j==classroom.GetUpperBound(1)))
-					continue;
-
 				classroom[i,j].tag = "Student";
 				Nodes n = classroom[i,j].GetComponent<Nodes>();
 				Personality p = classroom[i,j].GetComponent<Personality>();
 
-				string randFirst = firstNames[(int)Random.Range(0, Mathf.Round(firstNames.Count - 1))];
+				string randFirst = firstNames[(int)Random.Range(0, Mathf.Round(firstNames.Count))];
 				firstNames.Remove(randFirst);
-				string randLast = lastNames[(int)Random.Range(0, Mathf.Round(lastNames.Count - 1))];
+				string randLast = lastNames[(int)Random.Range(0, Mathf.Round(lastNames.Count))];
 				lastNames.Remove(randLast);
 				p.fullName = randFirst+randLast;
 
-				p.posts.Add(posts[(int)Random.Range(0, Mathf.Round(posts.Count - 1))]);
-				p.posts.Add(posts[(int)Random.Range(0, Mathf.Round(posts.Count - 1))]);
-				p.posts.Add(posts[(int)Random.Range(0, Mathf.Round(posts.Count - 1))]);
-				p.posts.Add(posts[(int)Random.Range(0, Mathf.Round(posts.Count - 1))]);
+				p.posts.Add(posts[(int)Random.Range(0, Mathf.Round(posts.Count))]);
+				p.posts.Add(posts[(int)Random.Range(0, Mathf.Round(posts.Count))]);
+				p.posts.Add(posts[(int)Random.Range(0, Mathf.Round(posts.Count))]);
+				p.posts.Add(posts[(int)Random.Range(0, Mathf.Round(posts.Count))]);
 
-				Actions randAction = (Actions)Random.Range(2, 10);
+				Actions randAction = (Actions)Random.Range(1, 10);
 
 				n.GetComponent<Nodes> ().location (i, j);
 				n.GetComponent<Nodes> ().nodeAction(randAction);
 				//same thing for pictures
 			}
 		}
+		//instantiate player nodes
+		classroom [0, 0].tag = "Enemy";
+		enemy = classroom [0,0];
+		enemy.GetComponent<Nodes> ().nodeAction(Actions.hang);
+		enemy.GetComponent<Nodes> ().enemy = true;
+		//details
+
+		classroom [classroom.GetUpperBound(0),classroom.GetUpperBound(1)].tag = "Player";
+		player = classroom [classroom.GetUpperBound(0),classroom.GetUpperBound(1)];
+		player.GetComponent<Nodes> ().nodeAction(Actions.hang);
+		player.GetComponent<Nodes> ().set();
+
 		SetDefaultScores ();
 		SetUpNewTurn ();
 	}
