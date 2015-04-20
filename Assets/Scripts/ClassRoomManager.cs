@@ -10,7 +10,7 @@ public class ClassRoomManager : MonoBehaviour {
 	public bool requireSecond = false, gotSecond = false;
 	public Material selectedMat;
 	Animator animator;
-
+	
 	public void StartFB(int position){
 		int x,y;
 		x = position/4;
@@ -76,7 +76,63 @@ public class ClassRoomManager : MonoBehaviour {
 	public void UpdateLables(){
 		GameObject[] students = GameObject.FindGameObjectsWithTag("Student");
 		for (int i=0; i<students.Length;i++){
+			PlayParticles(i);
 			students[i].transform.FindChild("Text").GetComponent<UnityEngine.UI.Text>().text = "You: "+students[i].GetComponent<Nodes>().you + "\nThem: " +students[i].GetComponent<Nodes>().them;
+		}
+	}
+
+	void PlayParticles(int i){
+		int x,y;
+		x = i/4;
+		y = (int)(((i/4.0f)-x)/ 0.25f);
+		Debug.Log(x.ToString()+y.ToString());
+		GameObject student = manager.gameObject.GetComponent<GameManager>().classroom[x,y];
+		int newYou = - student.GetComponent<Personality>().prevYou + student.GetComponent<Nodes>().you;
+		int newThem = student.GetComponent<Personality>().prevThem - student.GetComponent<Nodes>().them;
+
+		Debug.Log (newYou.ToString() + newThem.ToString());
+		if (newYou >0){
+			student.transform.FindChild("Gain").GetComponent<ParticleSystem>().Play();
+		}
+		else if (newYou <0){
+			student.transform.FindChild("Lose").GetComponent<ParticleSystem>().Play();
+		}
+		else if (newThem >0){
+			student.transform.FindChild("Lose 1").GetComponent<ParticleSystem>().Play();
+		}
+		else if (newThem <0){
+			student.transform.FindChild("Gain 1").GetComponent<ParticleSystem>().Play();
+		}
+	}
+
+	void PlayParticles (int x, int y, int w, int z){
+		GameObject target = manager.gameObject.GetComponent<GameManager>().classroom[w,z];
+		GameObject student = manager.gameObject.GetComponent<GameManager>().classroom[x,y];
+
+
+		if (student.GetComponent<Nodes>().youEffect > 0){
+			target.transform.FindChild("Gain").GetComponent<ParticleSystem>().Play();
+		}
+
+		else if (student.GetComponent<Nodes>().youEffect < 0){
+			target.transform.FindChild("Lose").GetComponent<ParticleSystem>().Play();
+		}
+
+		else if (student.GetComponent<Nodes>().themEffect > 0){
+			target.transform.FindChild("Lose 1").GetComponent<ParticleSystem>().Play();
+		}
+
+		else if (student.GetComponent<Nodes>().themEffect < 0){
+			target.transform.FindChild("Gain 1").GetComponent<ParticleSystem>().Play();
+		}
+
+	}
+
+	void SaveScores(){
+		GameObject[] students = GameObject.FindGameObjectsWithTag("Student");
+		for (int i=0; i<students.Length;i++){
+			students[i].GetComponent<Personality>().prevYou = students[i].GetComponent<Nodes>().you;
+			students[i].GetComponent<Personality>().prevThem = students[i].GetComponent<Nodes>().them;
 		}
 	}
 
@@ -86,9 +142,9 @@ public class ClassRoomManager : MonoBehaviour {
 		y = (int)(((currentStudent/4.0f)-x)/ 0.25f);
 
 		GameObject student = manager.gameObject.GetComponent<GameManager>().classroom[x,y];
-		Debug.Log (student.GetComponent<Nodes>().row.ToString() + student.GetComponent<Nodes>().column.ToString());
-		//student.GetComponent<Nodes>().location(x,y);
+
 		if(!requireSecond){
+			SaveScores();
 			student.GetComponent<Nodes>().callAction(3,3);
 			student.transform.FindChild("Check").gameObject.SetActive(true);
 			UpdateLables();
@@ -97,6 +153,7 @@ public class ClassRoomManager : MonoBehaviour {
 		else if(gotSecond){
 			w = currentTarget/4;
 			z = (int)(((currentTarget/4.0f)-w)/ 0.25f);
+			SaveScores();
 			student.GetComponent<Nodes>().callAction(3,3,w,z);
 			student.transform.FindChild("Check").gameObject.SetActive(true);
 			UpdateLables();

@@ -6,6 +6,8 @@ public class Personality : MonoBehaviour {
 	public string fullName;
 	public string birthday;
 	public List<string> posts;
+
+	public int prevYou, prevThem;
 	// Use this for initialization
 	void Start () {
 	
