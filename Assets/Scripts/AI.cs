@@ -181,67 +181,67 @@ public class AI : MonoBehaviour {
 
 		}//use 2, 4, 9
 
-		for (int i = 0; i < friends; i++) {
-			if (((iterF [i].moveType == 5 && usedVal [i] == 0) || (iterF [i].moveType == 8 && usedVal [i] == 0) || (usedVal [i] == 7 && iterF [i].moveType == 0))) {
-				for (int x = 0; x < friends; x++) {
-					if ((x != i && iterF[x].moveType == 3 || iterF [x].moveType == 10) && iterF[i].moveType == 5) {
-						GameObject variable = manager.GetComponent<GameManager> ().classroom [rowF [i], columnF [i]];
-						variable.GetComponent<Nodes> ().callAction (0, 0, rowF [x], columnF [x]);
-						Debug.Log (string.Format ("immune"));
-						transform.parent.parent.GetComponent<ClassRoomManager>().ActionTaken(rowF[i], columnF[i],rowF [x], columnF [x]);
-						usedVal [i] = 1;
-						break;
-					}
-					if ((iterF [x].totalScore > -10) && iterF [i].moveType == 5) {
-						GameObject variable = manager.GetComponent<GameManager> ().classroom [rowF [i], columnF [i]];
-						variable.GetComponent<Nodes> ().callAction (0, 0, rowF [x], columnF [x]);
-						Debug.Log (string.Format ("immune"));
-						transform.parent.parent.GetComponent<ClassRoomManager>().ActionTaken(rowF[i], columnF[i],rowF [x], columnF [x]);
-						usedVal [i] = 1;
-						break;
-					}
-				}
-
-				for (int x = 0; x < enemmies; x++){
-					if ((iterE[x].moveType == 3 || iterE[x].moveType == 10) && iterF[i].moveType == 8) {
-						GameObject variable = manager.GetComponent<GameManager> ().classroom [rowF [i], columnF [i]];
-						variable.GetComponent<Nodes> ().callAction (0, 0, rowE [x], columnE [x]);
-						Debug.Log (string.Format ("accident"));
-						transform.parent.parent.GetComponent<ClassRoomManager>().ActionTaken(rowF[i], columnF[i],rowE [x], columnE [x]);
-						usedVal [i] = 1;
-						break;
-					}
-				}
-				for (int x = 0; x < enemmies; x++){
-					if ((iterE[x].moveType == 2 || iterE[x].moveType == 4 || iterE[x].moveType == 10) && iterF[i].moveType == 8) {
-						GameObject variable = manager.GetComponent<GameManager> ().classroom [rowF [i], columnF [i]];
-						variable.GetComponent<Nodes> ().callAction (0, 0, rowE [x], columnE [x]);
-						Debug.Log (string.Format ("accident"));
-						transform.parent.parent.GetComponent<ClassRoomManager>().ActionTaken(rowF[i], columnF[i],rowE [x], columnE [x]);
-						usedVal [i] = 1;
-						break;
-					}
-				}
-			}
+//		for (int i = 0; i < friends; i++) {
+//			if (((iterF [i].moveType == 5 && usedVal [i] == 0) || (iterF [i].moveType == 8 && usedVal [i] == 0) || (usedVal [i] == 7 && iterF [i].moveType == 0))) {
+//				for (int x = 0; x < friends; x++) {
+//					if ((x != i && iterF[x].moveType == 3 || iterF [x].moveType == 10) && iterF[i].moveType == 5) {
+//						GameObject variable = manager.GetComponent<GameManager> ().classroom [rowF [i], columnF [i]];
+//						variable.GetComponent<Nodes> ().callAction (0, 0, rowF [x], columnF [x]);
+//						Debug.Log (string.Format ("immune"));
+//						transform.parent.parent.GetComponent<ClassRoomManager>().ActionTaken(rowF[i], columnF[i],rowF [x], columnF [x]);
+//						usedVal [i] = 1;
+//						break;
+//					}
+//					if ((iterF [x].totalScore > -10) && iterF [i].moveType == 5) {
+//						GameObject variable = manager.GetComponent<GameManager> ().classroom [rowF [i], columnF [i]];
+//						variable.GetComponent<Nodes> ().callAction (0, 0, rowF [x], columnF [x]);
+//						Debug.Log (string.Format ("immune"));
+//						transform.parent.parent.GetComponent<ClassRoomManager>().ActionTaken(rowF[i], columnF[i],rowF [x], columnF [x]);
+//						usedVal [i] = 1;
+//						break;
+//					}
+//				}
+//
+//				for (int x = 0; x < enemmies; x++){
+//					if ((iterE[x].moveType == 3 || iterE[x].moveType == 10) && iterF[i].moveType == 8) {
+//						GameObject variable = manager.GetComponent<GameManager> ().classroom [rowF [i], columnF [i]];
+//						variable.GetComponent<Nodes> ().callAction (0, 0, rowE [x], columnE [x]);
+//						Debug.Log (string.Format ("accident"));
+//						transform.parent.parent.GetComponent<ClassRoomManager>().ActionTaken(rowF[i], columnF[i],rowE [x], columnE [x]);
+//						usedVal [i] = 1;
+//						break;
+//					}
+//				}
+//				for (int x = 0; x < enemmies; x++){
+//					if ((iterE[x].moveType == 2 || iterE[x].moveType == 4 || iterE[x].moveType == 10) && iterF[i].moveType == 8) {
+//						GameObject variable = manager.GetComponent<GameManager> ().classroom [rowF [i], columnF [i]];
+//						variable.GetComponent<Nodes> ().callAction (0, 0, rowE [x], columnE [x]);
+//						Debug.Log (string.Format ("accident"));
+//						transform.parent.parent.GetComponent<ClassRoomManager>().ActionTaken(rowF[i], columnF[i],rowE [x], columnE [x]);
+//						usedVal [i] = 1;
+//						break;
+//					}
+//				}
+//			}
 //			if (iterF [i].moveType == 7 && usedVal[i] == 0){
 //				for (int k = 0; k < neutral; k++) {
-//					if (iterN[k].moveType == 3 || iterN[k].moveType == 10) {
+//					if (iterN[k].moveType == 3 || iterN[k].moveType == 10 || iterN[k].moveType == 4 || iterN[k].moveType == 2 || iterN[k].moveType == 9) {
 //						GameObject variable = manager.GetComponent<GameManager> ().classroom [rowF [i], columnF [i]];
 //						Debug.Log (string.Format ("Action first, {0},{1}", rowE [k], columnE [k]));
 //						variable.GetComponent<Nodes> ().callAction (0, 0, rowN [k], columnN [k]);
 //						usedVal[i] = 1;
 //
-//						GameObject variableX = manager.GetComponent<GameManager> ().classroom [rowF [z], columnF [z]];
-//						transform.parent.parent.GetComponent<ClassRoomManager>().ActionTaken(rowF[z], columnF[z],0,0);
+//						GameObject variableX = manager.GetComponent<GameManager> ().classroom [rowF [k], columnF [k]];
+//						transform.parent.parent.GetComponent<ClassRoomManager>().ActionTaken(rowF[k], columnF[k],0,0);
 //						variableX.GetComponent<Nodes> ().callAction (0, 0);
-//d
+//
 //						transform.parent.parent.GetComponent<ClassRoomManager>().ActionTaken(rowF[i], columnF[i],rowE [k], columnE [k]);
 //						break;
 //
 //					}
 //				}
 //			}
-		}
+//		}
 
 				
 
