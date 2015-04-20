@@ -32,8 +32,8 @@ public class ClassRoomManager : MonoBehaviour {
 			posts[i].gameObject.transform.FindChild("Comment Image").GetComponent<UnityEngine.UI.Image>().sprite = student.GetComponent<UnityEngine.UI.Image>().sprite;
 			posts[i].gameObject.transform.FindChild("Post Image").GetComponent<UnityEngine.UI.Image>().sprite = student.GetComponent<UnityEngine.UI.Image>().sprite;
 		}
-		if(student.GetComponent<Nodes>().usableP || student.GetComponent<Nodes>().exceptionP){
-			if(student.GetComponent<Nodes>().moveType == 1 || student.GetComponent<Nodes>().moveType == 3 || student.GetComponent<Nodes>().moveType == 10 || student.GetComponent<Nodes>().moved){
+		if(student.GetComponent<Nodes>().usableP || student.GetComponent<Nodes>().exceptionP || student.GetComponent<Nodes>().player){
+			if(student.GetComponent<Nodes>().moveType == 3 || student.GetComponent<Nodes>().moveType == 10 || student.GetComponent<Nodes>().moved){
 				requireSecond = false;
 				fb.transform.FindChild("Power").FindChild("Pick Target").gameObject.SetActive(false);
 				fb.transform.FindChild("Power").FindChild("Power").GetComponent<UnityEngine.UI.Button>().gameObject.SetActive(true);
@@ -224,7 +224,7 @@ public class ClassRoomManager : MonoBehaviour {
 		for (int i=0; i<=manager.gameObject.GetComponent<GameManager>().classroom.GetUpperBound(0);i++){
 			for(int j=0; j<=manager.gameObject.GetComponent<GameManager>().classroom.GetUpperBound(1);j++){
 				GameObject student = manager.gameObject.GetComponent<GameManager>().classroom[i,j];
-				if (student.gameObject.tag == "Student"){
+				if (true){
 					int index = i*4 + j;
 					
 					student.gameObject.GetComponent<UnityEngine.UI.Button>().onClick.RemoveAllListeners();
@@ -276,7 +276,7 @@ public class ClassRoomManager : MonoBehaviour {
 		for (int i=0; i<=manager.gameObject.GetComponent<GameManager>().classroom.GetUpperBound(0);i++){
 			for(int j=0; j<=manager.gameObject.GetComponent<GameManager>().classroom.GetUpperBound(1);j++){
 				GameObject student = manager.gameObject.GetComponent<GameManager>().classroom[i,j];
-				if (student.gameObject.tag == "Student"){
+				if (true){
 					int index = i*4 + j;
 					
 					student.gameObject.transform.SetSiblingIndex(index);
@@ -320,7 +320,7 @@ public class ClassRoomManager : MonoBehaviour {
 		temp.transform.FindChild("Target").GetComponent<UnityEngine.UI.Image>().sprite = target.GetComponent<UnityEngine.UI.Image>().sprite;
 		temp.transform.FindChild("Power").FindChild("Text").GetComponent<UnityEngine.UI.Text>().text = student.GetComponent<Nodes>().MovesType;
 
-		transform.FindChild("Scrollbar").GetComponent<UnityEngine.UI.Scrollbar>().value = 0;
+		//transform.FindChild("Scrollbar").GetComponent<ScrollReset>().Reset();
 	}
 
 	public void Win(){
