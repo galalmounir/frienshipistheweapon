@@ -11,6 +11,9 @@ public class MainMenuManager : MonoBehaviour {
 		Application.Quit();
 	}
 
+	public void Credits(){
+		Application.LoadLevel("Credits");
+	}
 	public void MainMenu(){
 		Application.LoadLevel("Main Menu");
 	}

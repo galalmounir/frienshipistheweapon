@@ -13,7 +13,7 @@ public class Nodes : MonoBehaviour {
 	public bool usableE, usableP, usableN, excpetionE = false, exceptionP = false, moved= false;
 	public static string[] moves = {"Hang out", "Introduce me", "Talk me up", "Trash talk her", "Skip school", 
 		"Motivate", "Peer pressure", "Prank", "Liquid courage", "Study session"};
-	public static string[] moveDescription = {
+	public string[] moveDescription = {
 		"Hang out with someone to win their approval", 
 		"Help me win over your friend", 
 		"Make me look good in front of the class", 

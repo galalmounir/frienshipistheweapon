@@ -23,7 +23,7 @@ public class ClassRoomManager : MonoBehaviour {
 		fb.SetActive(true);
 		fb.transform.FindChild("Name").GetComponent<UnityEngine.UI.Text>().text = student.GetComponent<Personality>().fullName;
 		fb.transform.FindChild("Profile Pic").FindChild("Pic").GetComponent<UnityEngine.UI.Image>().sprite = student.GetComponent<UnityEngine.UI.Image>().sprite;
-		fb.transform.FindChild("About").FindChild("Birthday").GetComponent<UnityEngine.UI.Text>().text = student.GetComponent<Personality>().birthday;
+		fb.transform.FindChild("About").FindChild("Birthday").GetComponent<UnityEngine.UI.Text>().text = student.GetComponent<Nodes>().moveDescription[student.GetComponent<Nodes>().moveType-1];
 		fb.transform.FindChild("Power").FindChild("Effect").GetComponent<UnityEngine.UI.Text>().text =student.GetComponent<Nodes>().MovesType +"\nYou: "+ student.GetComponent<Nodes>().youEffect+ "\nThem: "+student.GetComponent<Nodes>().themEffect+ "\nCost: "+student.GetComponent<Nodes>().cost;
 
 		for (int i=0; i<posts.Length;i++){
@@ -354,6 +354,8 @@ public class ClassRoomManager : MonoBehaviour {
 	public void StartMainMenu(){
 		Application.LoadLevel("Main Menu");
 	}
+
+
 	// Update is called once per frame
 	void Update () {
 	
