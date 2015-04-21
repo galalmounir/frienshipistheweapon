@@ -114,13 +114,13 @@ public class Nodes : MonoBehaviour {
 			isImmune (true);
 			immuneInt = immuneInt - 1;
 		} else {
-			isImmune ();
+			isImmune (false);
 		}
 		if (accidentInt > 0) {
-			isPranked (true);
+			isPranked (false);
 			accidentInt = accidentInt - 1;
 		} else {
-			isPranked ();
+			isPranked (true);
 		}
 
 
@@ -164,13 +164,11 @@ public class Nodes : MonoBehaviour {
 			temp = 2;
 		}
 
-
-
 		if (actionable) {
-		if (moveType == 1 && !variable2.GetComponent<Nodes> ().immune) {
-			int input = hangPts * temp;
-			hangOut (variable2.GetComponent<Nodes> (), input); //target node
-		}else if (moveType == 2 && !variable2.GetComponent<Nodes> ().immune) {
+			if (moveType == 1 && !variable2.GetComponent<Nodes> ().immune) {
+				int input = hangPts * temp;
+				hangOut (variable2.GetComponent<Nodes> (), input); //target node
+			}else if (moveType == 2 && !variable2.GetComponent<Nodes> ().immune) {
 				int input = introPts * temp;
 				introTT (variable.GetComponent<Nodes> (), variable2.GetComponent<Nodes> (), input, true); //player node and target node
 			} else if (moveType == 4 && !variable2.GetComponent<Nodes> ().immune) {
@@ -225,11 +223,13 @@ public class Nodes : MonoBehaviour {
 	}
 
 	public void becomeImmune(){
-		immuneInt = immuneInt + 2;
+		immuneInt = 2;
+		immune = true;
 	}
 		
 	public void haveAccident(){
-		accidentInt = accidentInt + 2;
+		accidentInt = 2;
+		actionable = false;
 	}
 
 	public void isMotivated(bool input){
@@ -247,13 +247,10 @@ public class Nodes : MonoBehaviour {
 		return 2;
 	}
 
-	public void isPranked(bool input){
+	public void isPranked(bool input = true){
 		actionable = input;
 	}
 
-	public void isPranked(){
-		actionable = true;
-	}
 
 	public void cheaper(int c){
 		cost = c;

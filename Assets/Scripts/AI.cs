@@ -83,11 +83,13 @@ public class AI : MonoBehaviour {
 			if ((iterE [k].totalScore - 5) < 10  && usedE[k] == 0 && yourT == false) {
 				GameObject variable = manager.GetComponent<GameManager> ().classroom [0,0];
 				Debug.Log (string.Format ("Action first, {0},{1}", rowE [k], columnE [k]));
+				if (variable.GetComponent<Nodes> ().actionable){
 				variable.GetComponent<Nodes> ().callAction (0,0,rowE [k], columnE [k]);
 				yourT = true;
 				usedE[k] = 1;
 				transform.parent.parent.GetComponent<ClassRoomManager>().ActionTaken(0,0,rowE [k], columnE [k]);
 				break;
+				}
 				
 			}
 		}
@@ -96,6 +98,7 @@ public class AI : MonoBehaviour {
 				GameObject variableN = manager.GetComponent<GameManager> ().classroom [0,0];
 				//Debug.Log(string.Format("{0},{1}",rowN [k],rowN [k]));
 				Debug.Log (string.Format ("Action second, {0},", k));
+				if (variableN.GetComponent<Nodes> ().actionable){
 				variableN.GetComponent<Nodes> ().callAction (0,0,rowN [k], columnN [k]);
 				yourT = true;
 				usedN[k] = 1;
@@ -103,6 +106,7 @@ public class AI : MonoBehaviour {
 				Debug.Log (string.Format ("second"));
 				transform.parent.parent.GetComponent<ClassRoomManager>().ActionTaken(0,0,rowN [k], columnN[k]);
 				break;
+				}
 				
 			}
 		}
@@ -111,11 +115,13 @@ public class AI : MonoBehaviour {
 			if (yourT == false) {
 				GameObject variable = manager.GetComponent<GameManager> ().classroom [0,0];
 				Debug.Log (string.Format ("Action first, {0},{1}", rowE [k], columnE [k]));
+				if (variable.GetComponent<Nodes> ().actionable){
 				variable.GetComponent<Nodes> ().callAction (0,0,rowE [k], columnE [k]);
 				yourT = true;
 				usedE[k] = 1;
 				transform.parent.parent.GetComponent<ClassRoomManager>().ActionTaken(0,0,rowE [k], columnE [k]);
 				break;
+				}
 				
 			}
 		}
@@ -125,6 +131,7 @@ public class AI : MonoBehaviour {
 				for (int x = 0; x < friends; x++) {
 					if (x != i && ((iterF [x].moveType == 3 || iterF [x].moveType == 10) && usedVal[i] == 0)) {
 						GameObject variable = manager.GetComponent<GameManager> ().classroom [rowF [i], columnF [i]];
+						if (variable.GetComponent<Nodes> ().actionable){
 						variable.GetComponent<Nodes> ().callAction (0, 0, rowF [x], columnF [x]);
 						usedAI.Add (6);
 						Debug.Log (string.Format ("first"));
@@ -132,16 +139,19 @@ public class AI : MonoBehaviour {
 
 						usedVal[i] = 1;
 						break;
+						}
 					}
 				}
 				for (int x = 0; x < friends; x++) {
 					if (x != i && (iterF [x].moveType == 4 || iterF [x].moveType == 2 || iterF [x].moveType == 9) && usedVal[i] == 0) {
 						GameObject variable = manager.GetComponent<GameManager> ().classroom [rowF [i], columnF [i]];
+						if (variable.GetComponent<Nodes> ().actionable){
 						variable.GetComponent<Nodes> ().callAction (0, 0, rowF [x], columnF [x]);
 						transform.parent.parent.GetComponent<ClassRoomManager>().ActionTaken(rowF[i], columnF[i],rowF [x], columnF [x]);
 						usedVal[i] = 1;
 						Debug.Log (string.Format ("second"));
 						break;
+						}
 					}
 				}
 			}
@@ -151,17 +161,21 @@ public class AI : MonoBehaviour {
 				Debug.Log(string.Format("{0}, GETSH ASDFASKD",iterF[z].moveType));
 				if (iterF [z].moveType == 3 && usedVal[z] == 0) {
 					GameObject variable = manager.GetComponent<GameManager> ().classroom [rowF [z], columnF [z]];
+					if (variable.GetComponent<Nodes> ().actionable){
 					transform.parent.parent.GetComponent<ClassRoomManager>().ActionTaken(rowF[z], columnF[z],0,0);
 					variable.GetComponent<Nodes> ().callAction (0, 0);
 					usedVal[z] = 1;
+					}
 
 					//					//Debug.Log(string.Format("{0}",3));
 				}
 				if (iterF [z].moveType == 10 && usedVal[z] == 0) {
 					GameObject variable = manager.GetComponent<GameManager> ().classroom [rowF [z], columnF [z]];
+					if (variable.GetComponent<Nodes> ().actionable){
 					transform.parent.parent.GetComponent<ClassRoomManager>().ActionTaken(rowF[z], columnF[z],0,0);
 					variable.GetComponent<Nodes> ().callAction (0, 0);
 					usedVal[z] = 1;
+					}
 		
 				}
 				
@@ -177,11 +191,13 @@ public class AI : MonoBehaviour {
 					    (iterF [i].moveType == 9 && usedVal[i] == 0)) {
 						GameObject variable = manager.GetComponent<GameManager> ().classroom [rowF [i], columnF [i]];
 						Debug.Log (string.Format ("Action first, {0},{1}", rowE [k], columnE [k]));
+						if (variable.GetComponent<Nodes> ().actionable){
 						variable.GetComponent<Nodes> ().callAction (0, 0, rowE [k], columnE [k]);
 						usedE[k] = 1;
 						usedVal[i] = 1;
 						transform.parent.parent.GetComponent<ClassRoomManager>().ActionTaken(rowF[i], columnF[i],rowE [k], columnE [k]);
 						break;
+						}
 
 					}
 				}
@@ -190,6 +206,7 @@ public class AI : MonoBehaviour {
 						GameObject variableN = manager.GetComponent<GameManager> ().classroom [rowF [i], columnF [i]];
 						//Debug.Log(string.Format("{0},{1}",rowN [k],rowN [k]));
 							Debug.Log (string.Format ("Action second, {0},", k));
+						if (variableN.GetComponent<Nodes> ().actionable){
 						variableN.GetComponent<Nodes> ().callAction (0, 0, rowN [k], columnN [k]);
 						usedVal[i] = 1;
 						usedN[k] = 1;
@@ -197,29 +214,34 @@ public class AI : MonoBehaviour {
 						Debug.Log (string.Format ("second"));
 						transform.parent.parent.GetComponent<ClassRoomManager>().ActionTaken(rowF[i], columnF[i],rowN [k], columnN [k]);
 						break;
+						}
 	
 					}
 				}
 				for (int k = 0; k < enemmies; k++) {
 					if ((iterF [i].moveType == 4 && usedVal[i] == 0) || (iterF [i].moveType == 2 && usedVal[i] == 0) || (iterF [i].moveType == 9 && usedVal[i] == 0)) {
 						GameObject variable = manager.GetComponent<GameManager> ().classroom [rowF [i], columnF [i]];
+						if (variable.GetComponent<Nodes> ().actionable){
 						Debug.Log (string.Format ("Action third, {0},{1}", rowE [k], columnE [k]));
 						variable.GetComponent<Nodes> ().callAction (0, 0, rowE [k], columnE [k]);
 						usedVal[i] = 1;
 						Debug.Log (string.Format ("third"));
 						transform.parent.parent.GetComponent<ClassRoomManager>().ActionTaken(rowF[i], columnF[i],rowE [k], columnE [k]);
 						break;
+						}
 					}
 				}
 				for (int k = 0; k < neutral; k++) {
 					if ((iterF [i].moveType == 4 && usedVal[i] == 0) || (iterF [i].moveType == 2 && usedVal[i] == 0) || (iterF [i].moveType == 9 && usedVal[i] == 0)) {
 						GameObject variable = manager.GetComponent<GameManager> ().classroom [rowF [i], columnF [i]];
 						Debug.Log (string.Format ("Action fourth, {0},{1}", rowN [k], columnN [k]));
+						if (variable.GetComponent<Nodes> ().actionable){
 						variable.GetComponent<Nodes> ().callAction (0, 0, rowN [k], columnN [k]);
 						usedVal[i] = 1;
 						Debug.Log (string.Format ("fourth"));
 						transform.parent.parent.GetComponent<ClassRoomManager>().ActionTaken(rowF[i], columnF[i],rowN [k], columnN [k]);
 						break;
+						}
 					}
 				}
 			}
@@ -231,50 +253,60 @@ public class AI : MonoBehaviour {
 				for (int x = 0; x < friends; x++) {
 					if ((x != i && iterF[x].moveType == 3 || iterF [x].moveType == 10) && iterF[i].moveType == 5 && usedVal[i] == 0) {
 						GameObject variable = manager.GetComponent<GameManager> ().classroom [rowF [i], columnF [i]];
+						if (variable.GetComponent<Nodes> ().actionable){
 						variable.GetComponent<Nodes> ().callAction (0, 0, rowF [x], columnF [x]);
 						Debug.Log (string.Format ("immune"));
 						transform.parent.parent.GetComponent<ClassRoomManager>().ActionTaken(rowF[i], columnF[i],rowF [x], columnF [x]);
 						usedVal [i] = 1;
 						break;
+						}
 					}
 					if ((iterF [x].totalScore > -10) && iterF [i].moveType == 5 && usedVal[i] == 0) {
 						GameObject variable = manager.GetComponent<GameManager> ().classroom [rowF [i], columnF [i]];
+						if (variable.GetComponent<Nodes> ().actionable){
 						variable.GetComponent<Nodes> ().callAction (0, 0, rowF [x], columnF [x]);
 						Debug.Log (string.Format ("immune"));
 						transform.parent.parent.GetComponent<ClassRoomManager>().ActionTaken(rowF[i], columnF[i],rowF [x], columnF [x]);
 						usedVal [i] = 1;
 						break;
+						}
 					}
 				}
 
 				for (int x = 0; x < enemmies; x++){
 					if ((iterE[x].moveType == 3 || iterE[x].moveType == 10) && iterF[i].moveType == 8 && usedVal[i] == 0) {
 						GameObject variable = manager.GetComponent<GameManager> ().classroom [rowF [i], columnF [i]];
+						if (variable.GetComponent<Nodes> ().actionable){
 						variable.GetComponent<Nodes> ().callAction (0, 0, rowE [x], columnE [x]);
 						Debug.Log (string.Format ("accident"));
 						transform.parent.parent.GetComponent<ClassRoomManager>().ActionTaken(rowF[i], columnF[i],rowE [x], columnE [x]);
 						usedVal [i] = 1;
 						break;
+						}
 					}
 				}
 				for (int x = 0; x < enemmies; x++){
 					if ((iterE[x].moveType == 2 || iterE[x].moveType == 4 || iterE[x].moveType == 9) && iterF[i].moveType == 8 && usedVal[i] == 0) {
 						GameObject variable = manager.GetComponent<GameManager> ().classroom [rowF [i], columnF [i]];
+						if (variable.GetComponent<Nodes> ().actionable){
 						variable.GetComponent<Nodes> ().callAction (0, 0, rowE [x], columnE [x]);
 						Debug.Log (string.Format ("accident"));
 						transform.parent.parent.GetComponent<ClassRoomManager>().ActionTaken(rowF[i], columnF[i],rowE [x], columnE [x]);
 						usedVal [i] = 1;
 						break;
+						}
 					}
 				}
 				for (int x = 0; x < enemmies; x++){
 					if (iterF[i].moveType == 8 && usedVal[i] == 0) {
 						GameObject variable = manager.GetComponent<GameManager> ().classroom [rowF [i], columnF [i]];
+						if (variable.GetComponent<Nodes> ().actionable){
 						variable.GetComponent<Nodes> ().callAction (0, 0, rowE [x], columnE [x]);
 						Debug.Log (string.Format ("accident"));
 						transform.parent.parent.GetComponent<ClassRoomManager>().ActionTaken(rowF[i], columnF[i],rowE [x], columnE [x]);
 						usedVal [i] = 1;
 						break;
+						}
 					}
 				}
 			}
@@ -282,32 +314,40 @@ public class AI : MonoBehaviour {
 				for (int k = 0; k < neutral; k++) {
 					if ((iterN[k].moveType == 3 || iterN[k].moveType == 10)&& usedVal[i] == 0) {
 						GameObject variable = manager.GetComponent<GameManager> ().classroom [rowF [i], columnF [i]];
+						if (variable.GetComponent<Nodes> ().actionable){
 						variable.GetComponent<Nodes> ().callAction (0, 0, rowN [k], columnN [k]);
 						usedVal[i] = 1;
 						transform.parent.parent.GetComponent<ClassRoomManager>().ActionTaken(rowF[i], columnF[i],rowN [k], columnN [k]);
-
+						}
 						GameObject variableX = manager.GetComponent<GameManager> ().classroom [rowN [k], columnN [k]];
+						if (variableX.GetComponent<Nodes> ().actionable){
+						
 						variableX.GetComponent<Nodes> ().callAction (0, 0);
 
 						transform.parent.parent.GetComponent<ClassRoomManager>().ActionTaken(rowN[k], columnN[k],0,0);
 						break;
+						}
 
 					}
 				}
 				for (int k = 0; k < neutral; k++) {
 					if ((iterN[k].moveType == 2 || iterN[k].moveType == 9 || iterN[k].moveType == 10)&& usedVal[i] == 0) {
 						GameObject variable = manager.GetComponent<GameManager> ().classroom [rowF [i], columnF [i]];
+						if (variable.GetComponent<Nodes> ().actionable){
 						variable.GetComponent<Nodes> ().callAction (0, 0, rowN [k], columnN [k]);
 						usedVal[i] = 1;
 						transform.parent.parent.GetComponent<ClassRoomManager>().ActionTaken(rowF[i], columnF[i],rowN [k], columnN [k]);
+						}
 
 						for (int b = 0; b < neutral; b++) {
 							if (usedE[b] == 0){
 								GameObject variableX = manager.GetComponent<GameManager> ().classroom [rowN [k], columnN [k]];
+								if (variableX.GetComponent<Nodes> ().actionable){
 								variableX.GetComponent<Nodes> ().callAction (0, 0,rowE[b], columnE[b]);
 								usedE[b] = 1;
 								transform.parent.parent.GetComponent<ClassRoomManager>().ActionTaken(rowN[k], columnN[k],rowE[k], columnE[k]);
 								break;
+								}
 							}
 						}
 
